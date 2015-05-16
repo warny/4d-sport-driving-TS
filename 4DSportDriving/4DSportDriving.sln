@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4DSportDriving", "4DSportDriving\4DSportDriving.csproj", "{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4DSportDrivingTS", "4DSportDrivingTS\4DSportDrivingTS.csproj", "{46C655A4-7B15-41E5-A13A-75B31D78073E}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs29
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = 4DSportDriving\\4DSportDriving.csproj
+		SccProjectName1 = 4DSportDriving
+		SccLocalPath1 = 4DSportDriving
+		SccProjectUniqueName2 = 4DSportDrivingTS\\4DSportDrivingTS.csproj
+		SccProjectName2 = 4DSportDrivingTS
+		SccLocalPath2 = 4DSportDrivingTS
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

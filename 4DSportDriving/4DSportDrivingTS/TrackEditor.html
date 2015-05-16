@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Track Editor</title>
+    <script src="FileUtils.js"></script>
+    <script src="Resources.js"></script>
+    <script src="Tracks.js"></script>
+</head>
+<body>
+    <canvas id="track" height="480" width="480"></canvas>
+    <script type="text/ecmascript">
+        function readTrack(trackFile) {
+            var track = new Tracks.Track();
+            track.Read(trackFile);
+            var trackCanvas = document.getElementById("track");
+            var context = trackCanvas.getContext("2d");
+
+
+            for (var x = 0; x < track.SizeX; x++) for (var y = 0; y < track.SizeY; y++) {
+                var el = track.Elements[x][y];
+
+                var terrainImg = Tracks.TerrainTiles[el.Terrain];
+                if (terrainImg != null) {
+                    context.drawImage(terrainImg.Image, x * 16, y * 16);
+                }
+            }
+
+            for (var x = 0; x < track.SizeX; x++) for (var y = 0; y < track.SizeY; y++) {
+                var el = track.Elements[x][y];
+
+                var trackImg = Tracks.TrackTiles[el.Obj];
+                if (trackImg != null) {
+                    context.drawImage(trackImg.Image, x * 16, y * 16);
+                }
+            }
+        }
+
+    </script>
+
+    <input type="file" id="filereader" onchange="FileUtils.Reader.ReadBlob(this.files[0], readTrack)" />
+</body>
+</html>
