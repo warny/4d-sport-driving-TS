@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EEA0EBAB-8CE3-40B4-AE2F-4474D599F8A3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_4DSportDriving</RootNamespace>
+    <AssemblyName>4DSportDriving</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Graphics\circuit\0x01.png" />
+    <Content Include="Graphics\circuit\0x04.png" />
+    <Content Include="Graphics\circuit\0x05.png" />
+    <Content Include="Graphics\circuit\0x06.png" />
+    <Content Include="Graphics\circuit\0x07.png" />
+    <Content Include="Graphics\circuit\0x08.png" />
+    <Content Include="Graphics\circuit\0x09.png" />
+    <Content Include="Graphics\circuit\0x0a.png" />
+    <Content Include="Graphics\circuit\0x0b.png" />
+    <Content Include="Graphics\circuit\0x0c.png" />
+    <Content Include="Graphics\circuit\0x0d.png" />
+    <Content Include="Graphics\circuit\0x0e.png" />
+    <Content Include="Graphics\circuit\0x0f.png" />
+    <Content Include="Graphics\circuit\0x10.png" />
+    <Content Include="Graphics\circuit\0x11.png" />
+    <Content Include="Graphics\circuit\0x12.png" />
+    <Content Include="Graphics\circuit\0x13.png" />
+    <Content Include="Graphics\circuit\0x14.png" />
+    <Content Include="Graphics\circuit\0x15.png" />
+    <Content Include="Graphics\circuit\0x16.png" />
+    <Content Include="Graphics\circuit\0x17.png" />
+    <Content Include="Graphics\circuit\0x18.png" />
+    <Content Include="Graphics\circuit\0x19.png" />
+    <Content Include="Graphics\circuit\0x1a.png" />
+    <Content Include="Graphics\circuit\0x1b.png" />
+    <Content Include="Graphics\circuit\0x1c.png" />
+    <Content Include="Graphics\circuit\0x1d.png" />
+    <Content Include="Graphics\circuit\0x1e.png" />
+    <Content Include="Graphics\circuit\0x1f.png" />
+    <Content Include="Graphics\circuit\0x20.png" />
+    <Content Include="Graphics\circuit\0x21.png" />
+    <Content Include="Graphics\circuit\0x22.png" />
+    <Content Include="Graphics\circuit\0x23.png" />
+    <Content Include="Graphics\circuit\0x24.png" />
+    <Content Include="Graphics\circuit\0x25.png" />
+    <Content Include="Graphics\circuit\0x26.png" />
+    <Content Include="Graphics\circuit\0x27.png" />
+    <Content Include="Graphics\circuit\0x28.png" />
+    <Content Include="Graphics\circuit\0x29.png" />
+    <Content Include="Graphics\circuit\0x2a.png" />
+    <Content Include="Graphics\circuit\0x2b.png" />
+    <Content Include="Graphics\circuit\0x2c.png" />
+    <Content Include="Graphics\circuit\0x2d.png" />
+    <Content Include="Graphics\circuit\0x2e.png" />
+    <Content Include="Graphics\circuit\0x2f.png" />
+    <Content Include="Graphics\circuit\0x30.png" />
+    <Content Include="Graphics\circuit\0x31.png" />
+    <Content Include="Graphics\circuit\0x32.png" />
+    <Content Include="Graphics\circuit\0x33.png" />
+    <Content Include="Graphics\circuit\0x34.png" />
+    <Content Include="Graphics\circuit\0x35.png" />
+    <Content Include="Graphics\circuit\0x36.png" />
+    <Content Include="Graphics\circuit\0x37.png" />
+    <Content Include="Graphics\circuit\0x38.png" />
+    <Content Include="Graphics\circuit\0x39.png" />
+    <Content Include="Graphics\circuit\0x3a.png" />
+    <Content Include="Graphics\circuit\0x3b.png" />
+    <Content Include="Graphics\circuit\0x3c.png" />
+    <Content Include="Graphics\circuit\0x3d.png" />
+    <Content Include="Graphics\circuit\0x3e.png" />
+    <Content Include="Graphics\circuit\0x3f.png" />
+    <Content Include="Graphics\circuit\0x40.png" />
+    <Content Include="Graphics\circuit\0x41.png" />
+    <Content Include="Graphics\circuit\0x42.png" />
+    <Content Include="Graphics\circuit\0x43.png" />
+    <Content Include="Graphics\circuit\0x44.png" />
+    <Content Include="Graphics\circuit\0x45.png" />
+    <Content Include="Graphics\circuit\0x46.png" />
+    <Content Include="Graphics\circuit\0x47.png" />
+    <Content Include="Graphics\circuit\0x48.png" />
+    <Content Include="Graphics\circuit\0x49.png" />
+    <Content Include="Graphics\circuit\0x4a.png" />
+    <Content Include="Graphics\circuit\0x4b.png" />
+    <Content Include="Graphics\circuit\0x4c.png" />
+    <Content Include="Graphics\circuit\0x4d.png" />
+    <Content Include="Graphics\circuit\0x4e.png" />
+    <Content Include="Graphics\circuit\0x4f.png" />
+    <Content Include="Graphics\circuit\0x50.png" />
+    <Content Include="Graphics\circuit\0x51.png" />
+    <Content Include="Graphics\circuit\0x52.png" />
+    <Content Include="Graphics\circuit\0x53.png" />
+    <Content Include="Graphics\circuit\0x54.png" />
+    <Content Include="Graphics\circuit\0x55.png" />
+    <Content Include="Graphics\circuit\0x56.png" />
+    <Content Include="Graphics\circuit\0x57.png" />
+    <Content Include="Graphics\circuit\0x58.png" />
+    <Content Include="Graphics\circuit\0x59.png" />
+    <Content Include="Graphics\circuit\0x5a.png" />
+    <Content Include="Graphics\circuit\0x5b.png" />
+    <Content Include="Graphics\circuit\0x5c.png" />
+    <Content Include="Graphics\circuit\0x5d.png" />
+    <Content Include="Graphics\circuit\0x5e.png" />
+    <Content Include="Graphics\circuit\0x5f.png" />
+    <Content Include="Graphics\circuit\0x60.png" />
+    <Content Include="Graphics\circuit\0x61.png" />
+    <Content Include="Graphics\circuit\0x62.png" />
+    <Content Include="Graphics\circuit\0x63.png" />
+    <Content Include="Graphics\circuit\0x64.png" />
+    <Content Include="Graphics\circuit\0x65.png" />
+    <Content Include="Graphics\circuit\0x66.png" />
+    <Content Include="Graphics\circuit\0x67.png" />
+    <Content Include="Graphics\circuit\0x68.png" />
+    <Content Include="Graphics\circuit\0x69.png" />
+    <Content Include="Graphics\circuit\0x6a.png" />
+    <Content Include="Graphics\circuit\0x6b.png" />
+    <Content Include="Graphics\circuit\0x6c.png" />
+    <Content Include="Graphics\circuit\0x6d.png" />
+    <Content Include="Graphics\circuit\0x6e.png" />
+    <Content Include="Graphics\circuit\0x6f.png" />
+    <Content Include="Graphics\circuit\0x70.png" />
+    <Content Include="Graphics\circuit\0x71.png" />
+    <Content Include="Graphics\circuit\0x72.png" />
+    <Content Include="Graphics\circuit\0x73.png" />
+    <Content Include="Graphics\circuit\0x74.png" />
+    <Content Include="Graphics\circuit\0x75.png" />
+    <Content Include="Graphics\circuit\0x76.png" />
+    <Content Include="Graphics\circuit\0x77.png" />
+    <Content Include="Graphics\circuit\0x78.png" />
+    <Content Include="Graphics\circuit\0x79.png" />
+    <Content Include="Graphics\circuit\0x7a.png" />
+    <Content Include="Graphics\circuit\0x7b.png" />
+    <Content Include="Graphics\circuit\0x7c.png" />
+    <Content Include="Graphics\circuit\0x7d.png" />
+    <Content Include="Graphics\circuit\0x7e.png" />
+    <Content Include="Graphics\circuit\0x7f.png" />
+    <Content Include="Graphics\circuit\0x80.png" />
+    <Content Include="Graphics\circuit\0x81.png" />
+    <Content Include="Graphics\circuit\0x82.png" />
+    <Content Include="Graphics\circuit\0x83.png" />
+    <Content Include="Graphics\circuit\0x84.png" />
+    <Content Include="Graphics\circuit\0x85.png" />
+    <Content Include="Graphics\circuit\0x86.png" />
+    <Content Include="Graphics\circuit\0x87.png" />
+    <Content Include="Graphics\circuit\0x88.png" />
+    <Content Include="Graphics\circuit\0x89.png" />
+    <Content Include="Graphics\circuit\0x8a.png" />
+    <Content Include="Graphics\circuit\0x8b.png" />
+    <Content Include="Graphics\circuit\0x8c.png" />
+    <Content Include="Graphics\circuit\0x8d.png" />
+    <Content Include="Graphics\circuit\0x8e.png" />
+    <Content Include="Graphics\circuit\0x8f.png" />
+    <Content Include="Graphics\circuit\0x90.png" />
+    <Content Include="Graphics\circuit\0x91.png" />
+    <Content Include="Graphics\circuit\0x92.png" />
+    <Content Include="Graphics\circuit\0x93.png" />
+    <Content Include="Graphics\circuit\0x94.png" />
+    <Content Include="Graphics\circuit\0x95.png" />
+    <Content Include="Graphics\circuit\0x96.png" />
+    <Content Include="Graphics\circuit\0x97.png" />
+    <Content Include="Graphics\circuit\0x98.png" />
+    <Content Include="Graphics\circuit\0x99.png" />
+    <Content Include="Graphics\circuit\0x9a.png" />
+    <Content Include="Graphics\circuit\0x9b.png" />
+    <Content Include="Graphics\circuit\0x9c.png" />
+    <Content Include="Graphics\circuit\0x9d.png" />
+    <Content Include="Graphics\circuit\0x9e.png" />
+    <Content Include="Graphics\circuit\0x9F.png" />
+    <Content Include="Graphics\circuit\0xA0.png" />
+    <Content Include="Graphics\circuit\0xA1.png" />
+    <Content Include="Graphics\circuit\0xA2.png" />
+    <Content Include="Graphics\circuit\0xa3.png" />
+    <Content Include="Graphics\circuit\0xa4.png" />
+    <Content Include="Graphics\circuit\0xa5.png" />
+    <Content Include="Graphics\circuit\0xa6.png" />
+    <Content Include="Graphics\circuit\0xa7.png" />
+    <Content Include="Graphics\circuit\0xa8.png" />
+    <Content Include="Graphics\circuit\0xa9.png" />
+    <Content Include="Graphics\circuit\0xaa.png" />
+    <Content Include="Graphics\circuit\0xab.png" />
+    <Content Include="Graphics\circuit\0xac.png" />
+    <Content Include="Graphics\circuit\0xad.png" />
+    <Content Include="Graphics\circuit\0xae.png" />
+    <Content Include="Graphics\circuit\0xaf.png" />
+    <Content Include="Graphics\circuit\0xb0.png" />
+    <Content Include="Graphics\circuit\0xb1.png" />
+    <Content Include="Graphics\circuit\0xb2.png" />
+    <Content Include="Graphics\circuit\0xb3.png" />
+    <Content Include="Graphics\circuit\0xb4.png" />
+    <Content Include="Graphics\circuit\0xb5.png" />
+    <Content Include="Graphics\terrain\0x00.png" />
+    <Content Include="Graphics\terrain\0x01.png" />
+    <Content Include="Graphics\terrain\0x02.png" />
+    <Content Include="Graphics\terrain\0x03.png" />
+    <Content Include="Graphics\terrain\0x04.png" />
+    <Content Include="Graphics\terrain\0x05.png" />
+    <Content Include="Graphics\terrain\0x06.png" />
+    <Content Include="Graphics\terrain\0x07.png" />
+    <Content Include="Graphics\terrain\0x08.png" />
+    <Content Include="Graphics\terrain\0x09.png" />
+    <Content Include="Graphics\terrain\0x0a.png" />
+    <Content Include="Graphics\terrain\0x0b.png" />
+    <Content Include="Graphics\terrain\0x0c.png" />
+    <Content Include="Graphics\terrain\0x0d.png" />
+    <Content Include="Graphics\terrain\0x0e.png" />
+    <Content Include="Graphics\terrain\0x0f.png" />
+    <Content Include="Graphics\terrain\0x10.png" />
+    <Content Include="Graphics\terrain\0x11.png" />
+    <Content Include="Graphics\terrain\0x12.png" />
+    <Content Include="TrackViewer.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tracks\ANTONIO.TRK" />
+    <Content Include="Tracks\APO.TRK" />
+    <Content Include="Tracks\BERNIES.TRK" />
+    <Content Include="Tracks\CARCARLO.TRK" />
+    <Content Include="Tracks\CHERRIS.TRK" />
+    <Content Include="Tracks\CIRPO.TRK" />
+    <Content Include="Tracks\DEFAULT.TRK" />
+    <Content Include="Tracks\GIGI.TRK" />
+    <Content Include="Tracks\HELENS.TRK" />
+    <Content Include="Tracks\HELINS.TRK" />
+    <Content Include="Tracks\MERDA.TRK" />
+    <Content Include="Tracks\PASQUY.TRK" />
+    <Content Include="Tracks\PORCELLO.TRK" />
+    <Content Include="Tracks\PUPPI.TRK" />
+    <Content Include="Tracks\SADYC.TRK" />
+    <Content Include="Tracks\SEMPLICE.TRK" />
+    <Content Include="Tracks\SERGIO.TRK" />
+    <Content Include="Tracks\SKIDS.TRK" />
+    <Content Include="Tracks\TRAINING.TRK" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:56179/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
