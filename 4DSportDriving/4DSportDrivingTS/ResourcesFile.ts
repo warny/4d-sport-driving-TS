@@ -4,7 +4,7 @@
 module ResourcesFiles {
 
 
-    class ResourceInfo {
+    export class ResourceInfo {
         Id: string;
         Start: number;
         Length: number;
@@ -15,35 +15,42 @@ module ResourcesFiles {
         }
     }
 
-    class ResourceFile {
+    export class ResourceFile {
+        ResourcesInfo: ResourceInfo[];
 
-        public Read(Reader : FileUtils.Reader) {
-            var fileLength: number = Reader.ReadUInt(4);
-            if (fileLength != Reader.Length) throw new RangeException(); //"declare length is different from file length"
+        public Read(reader : FileUtils.Reader) {
+            var fileLength: number = reader.ReadUInt(4);
+            if (fileLength < reader.Length) throw new RangeException(); //"declared length is different from file length"
 
-            var numResources: number = Reader.ReadUInt(2);
+            var numResources: number = reader.ReadUInt(2);
 
-            var resourcesInfo: Array<ResourceInfo> = new ResourceInfo[numResources];
+            var resourcesInfo: ResourceInfo[] = new Array<ResourceInfo>(numResources);
 
             for (var i = 0; i < numResources; i++) {
-                resourcesInfo[i] = new ResourceInfo(Reader.ReadString(4));
+                resourcesInfo[i] = new ResourceInfo(reader.ReadString(4));
             }
 
             var lastResource: ResourceInfo = null;
+            var start: number = reader.Position;
             for (var i = 0; i < numResources; i++) {
-                resourcesInfo[i].Start = Reader.ReadUInt(4);
-                if (lastResource != null) lastResource.Length = resourcesInfo[i].Start - lastResource.Start;
+                resourcesInfo[i].Start = reader.ReadUInt(4);
+                if (lastResource != null) lastResource.Length = resourcesInfo[i].Start - start;
+                start = resourcesInfo[i].Start;
             }
-            lastResource.Length = Reader.Length - lastResource.Start;
+            resourcesInfo[resourcesInfo.length - 1].Length = reader.Length - start;
 
-            for (var resourceInfo in resourcesInfo) {
-                Reader.Seek(resourceInfo.Start);
-                resourceInfo.Datas = Reader.GetReader(resourceInfo.Length);
+            for (var i in resourcesInfo) {
+                var resourceInfo = resourcesInfo[i];
+                reader.Seek(resourceInfo.Start);
+                resourceInfo.Datas = reader.GetReader(resourceInfo.Length);
             }
+
+            this.ResourcesInfo = resourcesInfo;
         }
+
     }
 
-    class ResourceString implements FileUtils.IUseReader {
+    export class ResourceString implements FileUtils.IUseReader {
         public Value: string;
 
         public Read(Reader: FileUtils.Reader) {
@@ -51,7 +58,7 @@ module ResourcesFiles {
         }
     }
 
-    class ResourceBitmap implements FileUtils.IUseReader {
+    export class ResourceBitmap implements FileUtils.IUseReader {
         Bitmap: ImageData;
         OffsetX: number;
         OffsetY: number;
@@ -84,7 +91,7 @@ module ResourcesFiles {
 
     }
 
-    class Vertex {
+    export class Vertex {
         X: number;
         Y: number;
         Z: number;
@@ -96,12 +103,12 @@ module ResourcesFiles {
         }
     }
 
-    enum PrimitiveFlagEnum {
+    export enum PrimitiveFlagEnum {
         TwoSided = 0,
         ZBias = 1
     }
 
-    class Primitive {
+    export class Primitive {
         Type: number;
         Flag: PrimitiveFlagEnum;
         FrontCulling: number;
@@ -119,7 +126,7 @@ module ResourcesFiles {
         }
     }
 
-    class ResourceShape implements FileUtils.IUseReader {
+    export class ResourceShape implements FileUtils.IUseReader {
 
         Primitives: Primitive[];
 

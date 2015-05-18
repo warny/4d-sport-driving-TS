@@ -15,10 +15,10 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>%24/4dsportdriving/4DSportDriving/4DSportDrivingTS</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://tfs.codeplex.com/tfs/tfs29</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.css" />
@@ -224,6 +224,8 @@
     <Content Include="index.html" />
     <Content Include="Resources.ts" />
     <Content Include="ResourcesFile.ts" />
+    <Content Include="ResourceViewer.html" />
+    <Content Include="StuntPack.ts" />
     <Content Include="TrackEditor.html" />
     <Content Include="Tracks.ts" />
     <Content Include="web.config" />
