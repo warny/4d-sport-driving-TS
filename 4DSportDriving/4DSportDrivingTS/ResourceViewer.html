@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Track Editor</title>
+    <script src="FileUtils.js"></script>
+    <script src="Resources.js"></script>
+    <script src="ResourcesFile.js"></script>
+    <script src="Tracks.js"></script>
+</head>
+<body>
+    <p>
+        Fichier : <input type="file" id="file1" onchange="FileUtils.Reader.ReadBlob(this.files[0], readResourceFile)" />
+    </p>
+    <table>
+        <tr>
+            <td>
+                <select id="list" onchange="selectResource(this.value)"></select>
+            </td>
+            <td>
+                <table id="tblContent"> 
+
+                </table>
+            </td>
+        </tr>
+    </table>
+    <script type="text/ecmascript">
+        var rf = null;
+        function readResourceFile(resourceFile) {
+            rf = new ResourcesFiles.ResourceFile();
+            rf.Read(resourceFile);
+
+            var list = document.getElementById("list");
+            list.innerHTML = "";
+
+            for (var i in rf.ResourcesInfo) {
+                var option = HTMLOptionElement.create();
+                option.value = rf.ResourcesInfo[i].Id;
+                option.innerHTML = rf.ResourcesInfo[i].Id;
+                list.add(option);
+            }
+
+        }
+
+        function selectResource(id) {
+            var res = null;
+            for (var i in rf.ResourcesInfo) {
+                if (rf.ResourcesInfo[i].Id == id) {
+                    res = rf.ResourcesInfo[i];
+                    break;
+                }
+            }
+            if (res == null) return;
+            res.Datas.Seek(0);
+
+            var content = document.getElementById("tblContent");
+            while (content.rows.length > 0) {
+                content.deleteRow(-1);
+            }
+            var col = 0;
+            var row = content.insertRow();
+            while (!res.Datas.AtEndOfFile) {
+                var cell = row.insertCell();
+                cell.style = "text-align : right;"
+                cell.innerHTML = res.Datas.ReadByte().toString(16);
+                col++;
+                if (col == 16) {
+                    var row = content.insertRow();
+                    col = 0;
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

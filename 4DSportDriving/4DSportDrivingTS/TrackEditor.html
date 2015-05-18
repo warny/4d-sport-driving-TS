@@ -11,8 +11,8 @@
     <canvas id="track" height="480" width="480"></canvas>
     <script type="text/ecmascript">
         function readTrack(trackFile) {
-            var track = new Tracks.Track();
-            track.Read(trackFile);
+            var stuntTrack = new Tracks.StuntTrack();
+            var track = stuntTrack.Read(trackFile);
             var trackCanvas = document.getElementById("track");
             var context = trackCanvas.getContext("2d");
 

@@ -36,25 +36,25 @@
             reader.readAsArrayBuffer(blob);
         }
 
-        get Length(): number {
-            return this.__content.length;
+        public get Length(): number {
+            return this.__maxpos - this.__minpos;
         }
 
-        get Position(): number {
+        public get Position(): number {
             return this.__pos - this.__minpos;
         }
 
-        get AtEndOfFile(): boolean {
+        public get AtEndOfFile(): boolean {
             return this.__maxpos <= this.__pos;
         }
 
-        Seek(position: number) {
+        public Seek(position: number) {
             if (position >= 0 && position < this.__maxpos - this.__minpos) {
                 this.__pos = position + this.__minpos;
             }
         }
 
-        Shift(shift: number) {
+        public Shift(shift: number) {
             if (this.__pos + shift < this.__minpos) {
                 this.__pos = this.__minpos;
             }
@@ -64,46 +64,48 @@
             this.__pos += shift;
         }
 
-        ReadByte(): number {
+        public ReadByte(): number {
             if (this.AtEndOfFile) return null;
-            return this.__content[this.__pos++];
+            var value: number = this.__content[this.__pos++];
+            if (value < 0) value = 256 + value;
+            return value;
         }
 
-        ReadUInt(size: number): number {
+        public ReadUInt(size: number): number {
             if (this.__maxpos <= (this.__pos + size)) return null;
-            var value: number;
+            var value: number = 0;
             for (var i = 0; i < size; i++) {
-                value = value + this.ReadByte() * 256 ^ i;
+                value = value + this.ReadByte() * Math.pow(256, i);
             }
             return value;
         }
 
-        ReadInt(size: number): number {
+        public ReadInt(size: number): number {
             if (this.__maxpos <= (this.__pos + size)) return null;
-            var value: number;
+            var value: number = 0;
             var lastByte: number;
             for (var i = 0; i < size; i++) {
                 lastByte = this.ReadByte();
-                value = value + lastByte * 256 ^ i;
+                value = value + lastByte * Math.pow(256, i);
             }
             if (lastByte >= 128) {
-                value = -(value - 128 * (256 ^ (size - 1)));
+                value = -value + 128 * Math.pow(256, size - 1);
             }
             return value;
         }
 
-        GetReader(length: number): Reader {
+        public GetReader(length: number): Reader {
             return new Reader(this.__content, this.__pos, length);
         }
 
-        ReadArray(size: number): Int8Array {
+        public ReadArray(size: number): Int8Array {
             if (this.__maxpos <= (this.__pos + size)) return null;
             var value: Int8Array = this.__content.subarray(this.__pos, this.__pos + size);
             this.__pos += size;
             return value;
         }
 
-        ReadIntArray(arraySize: number, numberSize: number) {
+        public ReadUIntArray(arraySize: number, numberSize: number) {
             if (this.__maxpos <= (this.__pos + arraySize * numberSize)) return null;
             var value: number[] = new Array<number>(arraySize);
             for (var i: number; i < arraySize; i++) {
@@ -111,7 +113,15 @@
             }
         }
 
-        ReadArray2(sizeX: number, sizeY: number): Int8Array[] {
+        public ReadIntArray(arraySize: number, numberSize: number) {
+            if (this.__maxpos <= (this.__pos + arraySize * numberSize)) return null;
+            var value: number[] = new Array<number>(arraySize);
+            for (var i: number; i < arraySize; i++) {
+                value[i] = this.ReadInt(numberSize);
+            }
+        }
+
+        public ReadArray2(sizeX: number, sizeY: number): Int8Array[]{
             if (this.__maxpos <= (this.__pos + (sizeX * sizeY))) return null;
             var value: Int8Array[] = new Array<Int8Array>(sizeX);
 
@@ -121,7 +131,7 @@
             return value;
         }
 
-        ReadString(size?: number): string {
+        public ReadString(size?: number): string {
             if (this.__maxpos <= (this.__pos + size)) return null;
             var value: string = "";
             if (size == null) {
@@ -133,11 +143,67 @@
                     value += String.fromCharCode(this.ReadByte());
                 }
             }
+            return value;
         }
+
+        public Unpack(packAlgorithm: IUnpack) {
+            this.__content = packAlgorithm.Unpack(this);
+            this.__minpos = 0;
+            this.__maxpos = this.__content.length;
+        }
+    }
+
+    export class Writer {
+        private __content: Int8Array;
+        private __pos: number;
+
+        constructor(length: number, position: number = 0) {
+            this.__content = new Int8Array(length);
+            this.__pos = position;
+        }
+
+        public get Length() {
+            return this.__content.length;
+        }
+
+        public get Position(): number {
+            return this.__pos;
+        }
+
+        public get Content() {
+            return this.__content;
+        }
+
+        public get AtEndOfFile(): boolean {
+            return this.__content.length <= this.__pos;
+        }
+
+        public Seek(position: number) {
+            if (position >= 0 && position < this.__content.length) {
+                this.__pos = position;
+            }
+        }
+
+        public WriteByte(byte: number): void {
+            if (byte < -128 || byte >= 256) {
+                throw new RangeException();
+            }
+            if (byte >= 128) { byte = byte - 256; }
+
+            this.__content[this.__pos++] = byte;
+        }
+
     }
 
     export interface IUseReader {
         Read(Reader: FileUtils.Reader);
     }
 
+    export interface IReader<T> {
+        Read(Reader: FileUtils.Reader) : T;
+    }
+
+    export interface IUnpack {
+        Unpack(packed: Reader): Int8Array;
+    }
 }

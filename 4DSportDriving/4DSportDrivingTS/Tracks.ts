@@ -10,39 +10,41 @@ module Tracks {
         }
     }
 
-    export class Track implements FileUtils.IUseReader {
-        public SizeX: number;
-        public SizeY: number;
-        public Elements: Array<Array<Element>>;
-        public Horizon: number;
-
-        constructor() {
-        }
-
-        public Read(Reader: FileUtils.Reader) {
+    export class StuntTrack implements FileUtils.IReader<Track> {
+        public Read(Reader: FileUtils.Reader): Track {
             var size: number = Math.sqrt((Reader.Length / 2) - 1);
             if (size != Math.round(size)) {
                 throw new RangeException();
             }
 
-            this.SizeX = size;
-            this.SizeY = size;
+            var track = new Track();
 
-            this.Elements = new Array(this.SizeX);
+            track.SizeX = size;
+            track.SizeY = size;
+
+            track.Elements = new Array(track.SizeX);
 
             //read terrain
-            var objects = Reader.ReadArray2(this.SizeX, this.SizeY);
-            this.Horizon = Reader.ReadByte();
-            var terrain = Reader.ReadArray2(this.SizeX, this.SizeY);
+            var objects = Reader.ReadArray2(track.SizeX, track.SizeY);
+            track.Horizon = Reader.ReadByte();
+            var terrain = Reader.ReadArray2(track.SizeX, track.SizeY);
             var unkown = Reader.ReadByte();
 
-            for (var x: number = 0; x < this.SizeX; x++) {
-                this.Elements[x] = new Array<Element>(this.SizeY);
-                for (var y: number = 0; y < this.SizeY; y++) {
-                    this.Elements[x][y] = new Element(terrain[y][x], objects[size-1-y][x]);
+            for (var x: number = 0; x < track.SizeX; x++) {
+                track.Elements[x] = new Array<Element>(track.SizeY);
+                for (var y: number = 0; y < track.SizeY; y++) {
+                    track.Elements[x][y] = new Element(terrain[y][x], objects[size-1-y][x]);
                 }
             }
+            return track;
         }
+    }
+
+    export class Track  {
+        public SizeX: number;
+        public SizeY: number;
+        public Elements: Array<Array<Element>>;
+        public Horizon: number;
     }
 
     export class Tile {
