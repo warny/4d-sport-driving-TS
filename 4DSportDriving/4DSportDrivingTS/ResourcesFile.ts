@@ -1,5 +1,6 @@
 ﻿/// <reference path="FileUtils.ts"/>
 /// <reference path="Resources.ts"/>
+/// <reference path="StuntPack.ts"/>
 
 module ResourcesFiles {
 
@@ -20,7 +21,10 @@ module ResourcesFiles {
 
         public Read(reader : FileUtils.Reader) {
             var fileLength: number = reader.ReadUInt(4);
-            if (fileLength < reader.Length) throw new RangeException(); //"declared length is different from file length"
+            if (fileLength > reader.Length) {
+                reader.Seek(reader.Position - 4);
+                reader.Unpack(new StuntCompression.StuntUnpack());                
+            }
 
             var numResources: number = reader.ReadUInt(2);
 

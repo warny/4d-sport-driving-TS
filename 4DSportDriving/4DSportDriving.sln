@@ -5,9 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4DSportDriving", "4DSportDr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4DSportDrivingTS", "4DSportDrivingTS\4DSportDrivingTS.csproj", "{46C655A4-7B15-41E5-A13A-75B31D78073E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnpackResources", "UnpackResources\UnpackResources.csproj", "{AEFB1E31-A5A6-4046-9B59-2B76E864182F}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs29
 		SccLocalPath0 = .
@@ -17,6 +19,9 @@ Global
 		SccProjectUniqueName2 = 4DSportDrivingTS\\4DSportDrivingTS.csproj
 		SccProjectName2 = 4DSportDrivingTS
 		SccLocalPath2 = 4DSportDrivingTS
+		SccProjectUniqueName3 = UnpackResources\\UnpackResources.csproj
+		SccProjectName3 = UnpackResources
+		SccLocalPath3 = UnpackResources
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +36,10 @@ Global
 		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46C655A4-7B15-41E5-A13A-75B31D78073E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

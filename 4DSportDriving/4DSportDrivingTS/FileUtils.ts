@@ -71,25 +71,44 @@
             return value;
         }
 
-        public ReadUInt(size: number): number {
+        public ReadUInt(size: number, bigIndian: boolean = false): number {
             if (this.__maxpos <= (this.__pos + size)) return null;
             var value: number = 0;
-            for (var i = 0; i < size; i++) {
-                value = value + this.ReadByte() * Math.pow(256, i);
+            if (bigIndian) {
+                for (var i = 0; i < size; i++) {
+                    value = value << 8 + this.ReadByte();
+                }
+            } else {
+                for (var i = 0; i < size; i++) {
+                    value = value + (this.ReadByte() << (i * 8));
+                }
             }
-            return value;
+            return value >>> 0;
         }
 
-        public ReadInt(size: number): number {
+        public ReadInt(size: number, bigIndian:boolean = false): number {
             if (this.__maxpos <= (this.__pos + size)) return null;
             var value: number = 0;
             var lastByte: number;
-            for (var i = 0; i < size; i++) {
-                lastByte = this.ReadByte();
-                value = value + lastByte * Math.pow(256, i);
+            if (bigIndian) {
+                var firstByte: number;
+                for (var i = 0; i < size; i++) {
+                    lastByte = this.ReadByte();
+                    if (i = 0) firstByte = lastByte;
+                   value = value << 8 + lastByte;
+                }
+                if (firstByte >= 128) {
+                    value = -value + (128 << (i * 8));
+                }
             }
-            if (lastByte >= 128) {
-                value = -value + 128 * Math.pow(256, size - 1);
+            else {
+                for (var i = 0; i < size; i++) {
+                    lastByte = this.ReadByte();
+                    value = value + (lastByte << (i * 8));
+                }
+                if (lastByte >= 128) {
+                    value = -value + (128 << (i * 8));
+                }
             }
             return value;
         }
@@ -105,20 +124,23 @@
             return value;
         }
 
-        public ReadUIntArray(arraySize: number, numberSize: number) {
+        public ReadUIntArray(arraySize: number, numberSize: number) : Array<number> {
             if (this.__maxpos <= (this.__pos + arraySize * numberSize)) return null;
             var value: number[] = new Array<number>(arraySize);
-            for (var i: number; i < arraySize; i++) {
+            for (var i: number = 0; i < arraySize; i++) {
                 value[i] = this.ReadUInt(numberSize);
             }
+
+            return value;
         }
 
-        public ReadIntArray(arraySize: number, numberSize: number) {
+        public ReadIntArray(arraySize: number, numberSize: number): Array<number> {
             if (this.__maxpos <= (this.__pos + arraySize * numberSize)) return null;
             var value: number[] = new Array<number>(arraySize);
-            for (var i: number; i < arraySize; i++) {
+            for (var i: number = 0; i < arraySize; i++) {
                 value[i] = this.ReadInt(numberSize);
             }
+            return value
         }
 
         public ReadArray2(sizeX: number, sizeY: number): Int8Array[]{
@@ -191,6 +213,17 @@
             if (byte >= 128) { byte = byte - 256; }
 
             this.__content[this.__pos++] = byte;
+        }
+
+        public WriteArray(array: Int8Array, start: number = 0, length: number = null): void {
+            if (length == null) {
+                length = array.length - start;
+            } else if (length > array.length - start) {
+                throw RangeException();
+            }
+
+            this.__content.set(array.subarray(start, length - start), this.__pos);
+            this.__pos += length - start; 
         }
 
     }
