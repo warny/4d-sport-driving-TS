@@ -7,9 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4DSportDrivingTS", "4DSport
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnpackResources", "UnpackResources\UnpackResources.csproj", "{AEFB1E31-A5A6-4046-9B59-2B76E864182F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceConverter", "ResourceConverter\ResourceConverter.csproj", "{4AED2ECA-7945-4BCC-8727-94AE313BCA31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileUtils", "FileUtils\FileUtils.csproj", "{9F117B1E-CD92-4B01-9D8E-38B5B6EAB5FD}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs29
 		SccLocalPath0 = .
@@ -22,6 +26,12 @@ Global
 		SccProjectUniqueName3 = UnpackResources\\UnpackResources.csproj
 		SccProjectName3 = UnpackResources
 		SccLocalPath3 = UnpackResources
+		SccProjectUniqueName4 = ResourceConverter\\ResourceConverter.csproj
+		SccProjectName4 = ResourceConverter
+		SccLocalPath4 = ResourceConverter
+		SccProjectUniqueName5 = FileUtils\\FileUtils.csproj
+		SccProjectName5 = FileUtils
+		SccLocalPath5 = FileUtils
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +50,14 @@ Global
 		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEFB1E31-A5A6-4046-9B59-2B76E864182F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AED2ECA-7945-4BCC-8727-94AE313BCA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AED2ECA-7945-4BCC-8727-94AE313BCA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AED2ECA-7945-4BCC-8727-94AE313BCA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AED2ECA-7945-4BCC-8727-94AE313BCA31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F117B1E-CD92-4B01-9D8E-38B5B6EAB5FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F117B1E-CD92-4B01-9D8E-38B5B6EAB5FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F117B1E-CD92-4B01-9D8E-38B5B6EAB5FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F117B1E-CD92-4B01-9D8E-38B5B6EAB5FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

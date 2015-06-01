@@ -5,33 +5,34 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FileUtils;
 
 namespace UnpackResources
 {
 	class StuntUnpack
 	{
 
-		const uint STPK_MAX_SIZE = 0xFFFFFF;
-		const byte STPK_PASSES_MASK = 0x7F;
-		const byte STPK_PASSES_RECUR = 0x80;
+		public const uint STPK_MAX_SIZE = 0xFFFFFF;
+		public const byte STPK_PASSES_MASK = 0x7F;
+		public const byte STPK_PASSES_RECUR = 0x80;
 
-		const byte STPK_TYPE_RLE = 0x01;
-		const byte STPK_TYPE_VLE = 0x02;
+		public const byte STPK_TYPE_RLE = 0x01;
+		public const byte STPK_TYPE_VLE = 0x02;
 
-		const uint STPK_RLE_ESCLEN_MASK = 0x7F;
-		const uint STPK_RLE_ESCLEN_MAX = 0x0A;
-		const uint STPK_RLE_ESCLEN_NOSEQ = 0x80;
-		const uint STPK_RLE_ESCLOOKUP_LEN = 0x100;
-		const uint STPK_RLE_ESCSEQ_POS = 0x01;
+		public const uint STPK_RLE_ESCLEN_MASK = 0x7F;
+		public const uint STPK_RLE_ESCLEN_MAX = 0x0A;
+		public const uint STPK_RLE_ESCLEN_NOSEQ = 0x80;
+		public const uint STPK_RLE_ESCLOOKUP_LEN = 0x100;
+		public const uint STPK_RLE_ESCSEQ_POS = 0x01;
 
-		const byte STPK_VLE_WDTLEN_MASK = 0x7F;
-		const byte STPK_VLE_WDTLEN_MAX = 0x0F;
-		const byte STPK_VLE_WDTLEN_UNK = 0x80;
+		public const byte STPK_VLE_WDTLEN_MASK = 0x7F;
+		public const byte STPK_VLE_WDTLEN_MAX = 0x0F;
+		public const byte STPK_VLE_WDTLEN_UNK = 0x80;
 
-		const byte STPK_VLE_ESCARR_LEN = 0x10;
-		const uint STPK_VLE_ALPH_LEN = 0x100;
-		const byte STPK_VLE_ESC_WIDTH = 0x40;
-		const byte STPK_VLE_BYTE_MSB = 0x80;
+		public const byte STPK_VLE_ESCARR_LEN = 0x10;
+		public const uint STPK_VLE_ALPH_LEN = 0x100;
+		public const byte STPK_VLE_ESC_WIDTH = 0x40;
+		public const byte STPK_VLE_BYTE_MSB = 0x80;
 
 
 		// Decompress sub-files in source buffer.
@@ -109,6 +110,8 @@ namespace UnpackResources
 						break;
 					case STPK_TYPE_VLE:
 						Debug.WriteLine("  type Variable-length encoding");
+						//VLEDecoder decoder = new VLEDecoder();
+						//decoder.Decode(src, dst);
 						stpk_decompVLE(src, dst);
 						break;
 					default:
@@ -178,9 +181,9 @@ namespace UnpackResources
 			Reader finalSrc;
 
 			if (!STPK_GET_FLAG(escLen, STPK_RLE_ESCLEN_NOSEQ)) {
-				tmp = new Writer();
+				tmp = new Writer((int)dst.Length);
 				stpk_rleDecodeSeq(src, tmp, esc[STPK_RLE_ESCSEQ_POS]);
-				finalSrc = new Reader(dst.Stream);
+				finalSrc = new Reader(tmp.Stream);
 				finalSrc.Position = 0;
 			} else {
 				finalSrc = src;
@@ -219,10 +222,10 @@ namespace UnpackResources
 				} else {
 					dst.Write(cur);
 
-					if (dst.AtEndOfStream) {
-						Debug.WriteLine("Reached end of temporary buffer while writing non-RLE byte");
-						throw new EndOfStreamException();
-					}
+					//if (dst.AtEndOfStream) {
+					//	Debug.WriteLine("Reached end of temporary buffer while writing non-RLE byte");
+					//	throw new EndOfStreamException();
+					//}
 				}
 
 				// Progress bar.
@@ -242,13 +245,14 @@ namespace UnpackResources
 
 			Debug.WriteLine("[");
 
-			Debug.WriteLine("Decoding single-byte runs... ");
+			Console.WriteLine("Decoding single-byte runs... ");
 
 			while (!dst.AtEndOfStream) {
 				cur = src.ReadByte();
 
 				if (src.AtEndOfStream) {
-					Debug.WriteLine("Reached unexpected end of source buffer while decoding single-byte runs\n");
+					dst.Write(cur);
+					break;
 				}
 
 				if ((esc[cur] & 0xFF) != 0) {
@@ -294,11 +298,11 @@ namespace UnpackResources
 		void stpk_decompVLE ( Reader src, Writer dst )
 		{
 			byte widthsLen;
-			byte[] alphabet = new byte[STPK_VLE_ALPH_LEN];
+			byte[] alphabet = null; //new byte[STPK_VLE_ALPH_LEN];
 			byte[] symbols = new byte[STPK_VLE_ALPH_LEN];
 			byte[] widths = new byte[STPK_VLE_ALPH_LEN];
-			ushort[] esc1 = new ushort[STPK_VLE_ESCARR_LEN];
-			ushort[] esc2 = new ushort[STPK_VLE_ESCARR_LEN];
+			ushort[] esc1 = null; // new ushort[STPK_VLE_ESCARR_LEN];
+			ushort[] esc2 = null; // new ushort[STPK_VLE_ESCARR_LEN];
 
 			widthsLen = src.ReadByte();
 			var widthsOffset = src.Position;
@@ -311,7 +315,7 @@ namespace UnpackResources
 				throw new InvalidDataException(string.Format("widthsLen & STPK_VLE_WDTLEN_MASK greater than {0}, got {1}", STPK_VLE_WDTLEN_MAX, widthsLen & STPK_VLE_WDTLEN_MASK));
 			}
 
-			uint alphLen = stpk_vleGenEsc(src, esc1, esc2, widthsLen);
+			uint alphLen = stpk_vleGenEsc(src, out esc1, out esc2, widthsLen);
 
 			if (alphLen > STPK_VLE_ALPH_LEN) {
 				Debug.WriteLine("alphLen greater than {0}, got {1}", STPK_VLE_ALPH_LEN, alphLen);
@@ -319,10 +323,13 @@ namespace UnpackResources
 			}
 
 			// Read alphabet.
-			for (int i = 0; i < alphLen; i++) {
-				alphabet[i] = src.ReadByte();
-				Debug.WriteLine("  alphabet[{0}] = {1}", i, alphabet[i]);
-			}
+			alphabet = src.ReadByteArray((int)alphLen);
+			//for (int i = 0; i < alphLen; i++) {
+			//	alphabet[i] = src.ReadByte();
+			//	Debug.WriteLine("  alphabet[{0}] = {1}", i, alphabet[i]);
+			//}
+
+			DebugWriteArray("alphabet", alphabet);
 
 			if (src.AtEndOfStream) {
 				Debug.WriteLine("Reached end of source buffer while parsing variable-length header\n");
@@ -343,28 +350,34 @@ namespace UnpackResources
 		/// Read widths to generate escape table and return length of alphabet.
 		/// </summary>
 		/// <param name="src">Source reader</param>
-		/// <param name="esc1">first escape table</param>
-		/// <param name="esc2">second escape table</param>
-		/// <param name="widthsLen">escape table length</param>
+		/// <param name="escape1">first escape table</param>
+		/// <param name="escape2">second escape table</param>
+		/// <param name="widthsLength">escape table length</param>
 		/// <returns></returns>
-		uint stpk_vleGenEsc ( Reader src, ushort[] esc1, ushort[] esc2, uint widthsLen )
+		uint stpk_vleGenEsc ( Reader src, out ushort[] escape1, out ushort[] escape2, uint widthsLength )
 		{
-			ushort inc = 0, alphLen = 0;
+			escape1 = new ushort[widthsLength];
+			escape2 = new ushort[widthsLength];
 
-			for (int i = 0; i < widthsLen; i++) {
+			ushort inc = 0, alphabetLength = 0;
+
+			for (int i = 0; i < widthsLength; i++) {
 				inc <<= 1;
-				esc1[i] = (ushort)(alphLen - inc);
+				escape1[i] = (ushort)(alphabetLength - inc);
 				byte tmp = src.ReadByte();
 
 				inc += tmp;
-				alphLen += tmp;
+				alphabetLength += tmp;
 
-				esc2[i] = inc;
+				escape2[i] = inc;
 
-				Debug.WriteLine("  esc1[{0}] = {1};  esc2[{0}] = {2}", i, esc1[i], esc2[i]);
+				Debug.WriteLine("  esc1[{0}] = {1};  esc2[{0}] = {2}", i, escape1[i], escape2[i]);
 			}
 
-			return alphLen;
+			DebugWriteArray("escape1", escape1);
+			DebugWriteArray("escape2", escape2);
+
+			return alphabetLength;
 		}
 
 		// Generate code lookup table for symbols and widths.
@@ -376,20 +389,22 @@ namespace UnpackResources
 			// Distribution of symbols and widths.
 			uint i = 0, j = 0;
 			for (byte width = 1; width <= widthDistrLen; width++) {
-				symbsCount >>= 1;
 				for (byte symbsWidth = src.ReadByte(); symbsWidth > 0; symbsWidth--) {
-					j++;
 					for (byte symbsCountLeft = symbsCount; symbsCountLeft > 0; symbsCountLeft--) {
-						i++;
 						symbols[i] = alphabet[j];
 						widths[i] = width;
-						Debug.WriteLine("  symbols[{0}] = {1};  widths[{0}] = {2}", i, symbols[i], widths[i]);
+						i++;
 					}
+					j++;
 				}
+				symbsCount >>= 1;
 			}
 
 			// Pad widths.
 			for (; i < STPK_VLE_ALPH_LEN; i++) widths[i] = STPK_VLE_ESC_WIDTH;
+
+			DebugWriteArray("symbols", symbols);
+			DebugWriteArray("widths", widths);
 		}
 
 		// Decode variable-length compression codes.
@@ -403,9 +418,9 @@ namespace UnpackResources
 
 			Debug.WriteLine("Var-length [");
 
-			Debug.WriteLine("Decoding compression codes... \n");
+			Console.WriteLine("Decoding compression codes... \n");
 
-			while (!dst.AtEndOfStream) {
+			while (!src.AtEndOfStream && !dst.AtEndOfStream) {
 
 				byte code = (byte)(curWord >> 8 & 0xFF);
 
@@ -473,10 +488,10 @@ namespace UnpackResources
 				curWord <<= nextWidth;
 				curWidth -= nextWidth;
 
-				if (src.AtEndOfStream && !dst.AtEndOfStream) {
-					Debug.WriteLine("Reached unexpected end of source buffer while decoding variable-length compression codes");
-					throw new EndOfStreamException();
-				}
+				//if (src.AtEndOfStream && !dst.AtEndOfStream) {
+				//	Debug.WriteLine("Reached unexpected end of source buffer while decoding variable-length compression codes");
+				//	throw new EndOfStreamException();
+				//}
 
 				// Progress bar.
 				if (((src.Position * 100) / src.Length) >= (progress * 25)) {
@@ -532,5 +547,44 @@ namespace UnpackResources
 			return (value & flag) == flag;
 		}
 
+		public static void DebugWriteArray (string name, byte[] array )
+		{
+			Debug.WriteLine("{0}[{1}] = ", name, array.Length);
+			int i;
+			for (i = 0; i < array.Length; i++) {
+				if (i % 16 == 0) {
+					Debug.Write(string.Format("  {0} [", i.ToString("X").PadLeft(4, ' ')));
+				}
+				Debug.Write(array[i].ToString("X").PadLeft(2, '0'));
+				if (i % 16 == 15) {
+					Debug.WriteLine("]");
+				} else {
+					Debug.Write(" ");
+				}
+			}
+			if (i % 16 != 15) {
+				Debug.WriteLine("]");
+			}
+		}
+
+		public static void DebugWriteArray ( string name, ushort[] array )
+		{
+			Debug.WriteLine("{0}[{1}] = ", name, array.Length);
+			int i;
+			for (i = 0; i < array.Length; i++) {
+				if (i % 16 == 0) {
+					Debug.Write(string.Format("  {0} [", i.ToString("X").PadLeft(4, ' ')));
+				}
+				Debug.Write(array[i].ToString("X").PadLeft(4, '0'));
+				if (i % 16 == 15) {
+					Debug.WriteLine("]");
+				} else {
+					Debug.Write(" ");
+				}
+			}
+			if (i % 16 != 15) {
+				Debug.WriteLine("]");
+			}
+		}
 	}
 }

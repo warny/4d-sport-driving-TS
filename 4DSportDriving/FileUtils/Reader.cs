@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnpackResources
+namespace FileUtils
 {
-	class Reader
+	public class Reader
 	{
 		private Stream stream;
 
@@ -39,6 +39,12 @@ namespace UnpackResources
 			{
 				return this.stream.Position == this.stream.Length;
 			}
+		}
+
+		public TextReader GetTextReader (Encoding encoding = null)
+		{
+			encoding = encoding ?? Encoding.Default;
+			return new StreamReader(this.stream, encoding);
 		}
 
 		public void Seek ( long offset, SeekOrigin origin = SeekOrigin.Current )

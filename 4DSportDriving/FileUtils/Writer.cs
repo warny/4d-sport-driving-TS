@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnpackResources
+namespace FileUtils
 {
-	class Writer
+	public class Writer
 	{
 		public Stream Stream
 		{
@@ -36,7 +36,7 @@ namespace UnpackResources
 		public Writer ( Stream stream, bool isExtensible = true )
 		{
 			this.Stream = stream;
-			this.IsExtensible = IsExtensible;
+			this.IsExtensible = isExtensible;
 		}
 
 		public long Position
