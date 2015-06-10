@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace ResourceConverter
 {
-	public class Shape : IResource
+	public class Shape : Resource
 	{
-		#region IResource Membres
-		byte numVertices { get { return (byte)Vertices.Length; } }
-		byte numPrimitives { get { return (byte)Primitives.Length; } }
-		byte numPaintJobs	{ get; private set; }
+		public byte numVertices { get { return (byte)Vertices.Length; } }
+		public byte numPrimitives { get { return (byte)Primitives.Length; } }
+		public byte numPaintJobs	{ get; private set; }
 
-		Vertex[] Vertices { get; set; }
-		Primitive[] Primitives { get; set; }
+		public Vertex[] Vertices { get; set; }
+		public Primitive[] Primitives { get; set; }
 
-		public void Read ( FileUtils.Reader source, int size )
+		public override void Read ( FileUtils.Reader source, int size )
 		{
 			this.Vertices = new Vertex[source.ReadByte()];
 			this.Primitives = new Primitive[source.ReadByte()];
@@ -25,7 +24,7 @@ namespace ResourceConverter
 			source.ReadByte();
 
 			for (int i = 0; i < this.Vertices.Length; i++) {
-				Vertices[i] = new Vertex(source.ReadByte(), source.ReadByte(), source.ReadByte());
+				Vertices[i] = new Vertex(source.ReadShort(), source.ReadShort(), source.ReadShort());
 			}
 
 			for (int i = 0; i < this.Primitives.Length; i++) {
@@ -57,18 +56,15 @@ namespace ResourceConverter
 
 			}
 		}
-
-
-		#endregion
 	}
 
 	public class Vertex
 	{
-		public int X { get; set; }
-		public int Y { get; set; }
-		public int Z { get; set; }
+		public short X { get; set; }
+		public short Y { get; set; }
+		public short Z { get; set; }
 
-		public Vertex(int x, int y , int z) {
+		public Vertex(short x, short y , short z) {
 			this.X = x;
 			this.Y = y;
 			this.Z = z;
@@ -85,12 +81,12 @@ namespace ResourceConverter
 		Particule = 1,
 		Line = 2,
 		Polygone3 = 3,
-		Polygone4 = 3,
-		Polygone5 = 3,
-		Polygone6 = 3,
-		Polygone7 = 3,
-		Polygone8 = 3,
-		Polygone9 = 3,
+		Polygone4 = 4,
+		Polygone5 = 5,
+		Polygone6 = 6,
+		Polygone7 = 7,
+		Polygone8 = 8,
+		Polygone9 = 9,
 		Polygone10 = 10,
 		Sphere = 11,
 		Wheel = 12

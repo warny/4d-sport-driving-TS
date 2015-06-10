@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ResourceConverter
 {
-	class Image : IResource
+	class Image : Resource
 	{
 		public int Width { get { return Bitmap.Width; } }
 		public int Height { get { return Bitmap.Height; } }
@@ -18,7 +18,7 @@ namespace ResourceConverter
 
 		#region IResource Membres
 
-		public void Read ( FileUtils.Reader source, int size )
+		public override void Read ( FileUtils.Reader source, int size )
 		{
 			int width = source.ReadInt();
 			int height = source.ReadInt();
