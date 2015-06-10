@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mathematics
+namespace Mathematics.LinearAlgebra
 {
-    public partial class Point.LinearAlgebra
+    public partial class Point
     {
 
 		public static Vector operator - ( Point point1, Point point2 )
