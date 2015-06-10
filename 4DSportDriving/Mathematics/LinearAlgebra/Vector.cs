@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mathematics
+namespace Mathematics.LinearAlgebra
 {
 	public partial class Vector : IEquatable<Vector>
 	{
