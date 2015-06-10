@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mathematics
 {
-    public partial class Point
+    public partial class Point.LinearAlgebra
     {
 
 		public static Vector operator - ( Point point1, Point point2 )

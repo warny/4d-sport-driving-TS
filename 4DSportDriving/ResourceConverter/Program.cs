@@ -35,23 +35,23 @@ namespace ResourceConverter
 			Console.WriteLine(point1);
 			Console.WriteLine(point2);
 
-			//Console.WriteLine(matrix4.Determinant);
-			//Console.WriteLine(matrix1.ToString("S"));
-			//Console.WriteLine(matrix3.IsDiagonalized);
-			//Console.WriteLine(matrix3.IsTriangularised);
-			//Console.WriteLine(matrix5);
-			//Console.WriteLine(matrix4 * matrix5);
+			Console.WriteLine(matrix4.Determinant);
+			Console.WriteLine(matrix1.ToString("S"));
+			Console.WriteLine(matrix3.IsDiagonalized);
+			Console.WriteLine(matrix3.IsTriangularised);
+			Console.WriteLine(matrix5);
+			Console.WriteLine(matrix4 * matrix5);
 
-			//Console.WriteLine(Vector.Product(vector));
-			//Console.WriteLine(Vector.Product(vector1, vector2));
-			//Console.WriteLine(Vector.Product(vector2, vector1));
-			//Console.WriteLine(Vector.Product(vector4, vector5));
-			//Console.WriteLine(vector3.Normalize());
+			Console.WriteLine(Vector.Product(vector));
+			Console.WriteLine(Vector.Product(vector1, vector2));
+			Console.WriteLine(Vector.Product(vector2, vector1));
+			Console.WriteLine(Vector.Product(vector4, vector5));
+			Console.WriteLine(vector3.Normalize());
 
-			//var shapes = ReadResources.ReadGameShapes(new System.IO.DirectoryInfo(@"H:\projets\perso\4DSportDriving\resources"));
-			//foreach (var shape in shapes) {
-			//	Console.WriteLine(shape.Name);
-			//}
+			var shapes = ReadResources.ReadGameShapes(new System.IO.DirectoryInfo(@"H:\projets\perso\4DSportDriving\resources"));
+			foreach (var shape in shapes) {
+				Console.WriteLine(shape.Name);
+			}
 		}
 	}
 }

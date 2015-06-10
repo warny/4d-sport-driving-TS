@@ -43,18 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Matrix.Compute.cs" />
-    <Compile Include="Matrix.cs" />
-    <Compile Include="Matrix.Operators.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="LinearAlgebra\Matrix.Compute.cs" />
+    <Compile Include="LinearAlgebra\Matrix.cs" />
+    <Compile Include="LinearAlgebra\Matrix.Operators.cs" />
+    <Compile Include="LinearAlgebra\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vector.cs" />
+    <Compile Include="LinearAlgebra\Vector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Vector.Operators.cs" />
+    <Compile Include="LinearAlgebra\Vector.Operators.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Point.Operators.cs" />
+    <Compile Include="LinearAlgebra\Point.Operators.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
