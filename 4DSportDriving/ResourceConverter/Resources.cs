@@ -8,11 +8,28 @@ using FileUtils;
 
 namespace ResourceConverter
 {
-	public interface IResource
+	public interface IResource : IComparable<IResource>, IComparable<string>
 	{
+		string Name { get; set;  }
 		void Read ( Reader source, int size );
 	}
 
+	public abstract class Resource : IResource
+	{
+		public string Name { get; set; }
+
+		public abstract void Read ( Reader source, int size );
+
+		public int CompareTo ( IResource other )
+		{
+			return this.Name.CompareTo(other.Name);
+		}
+
+		public int CompareTo ( string other )
+		{
+			return this.Name.CompareTo(other);
+		}
+	}
 
 	public class ResourcesUtils
 	{

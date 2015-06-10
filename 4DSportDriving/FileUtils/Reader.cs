@@ -11,14 +11,17 @@ namespace FileUtils
 	public class Reader
 	{
 		private Stream stream;
+		public Encoding Encoding;
 
-		public Reader ( Stream stream )
+		public Reader ( Stream stream, Encoding encoding = null )
 		{
+			Encoding = encoding ?? Encoding.Default;
 			this.stream = stream;
 		}
 
-		public Reader ( byte[] buffer )
+		public Reader ( byte[] buffer, Encoding encoding = null )
 		{
+			Encoding = encoding ?? Encoding.Default;
 			this.stream = new MemoryStream(buffer);
 		}
 
@@ -115,10 +118,11 @@ namespace FileUtils
 
 		public byte[] ReadByteArray (int length)
 		{
-			byte[] array = new byte[length];
-			if (this.stream.Read(array, 0, length) != length) {
+			if (this.stream.Length < this.stream.Position + length) {
 				throw new EndOfStreamException();
 			}
+			byte[] array = new byte[length];
+			this.stream.Read(array, 0, length);
 			return array;
 		}
 
@@ -176,5 +180,10 @@ namespace FileUtils
 			return array;
 		}
 
+		public string ReadString ( int length )
+		{
+			var bytes = this.ReadByteArray(length);
+			return Encoding.GetString(bytes);
+		}
 	}
 }

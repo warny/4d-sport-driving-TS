@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>3D Viewer</title>
+
+    <script src="FileUtils.js"></script>
+    <script src="Resources.js"></script>
+    <script src="ResourcesFile.js"></script>
+    <script src="Tracks.js"></script>
+    <script src="babylon.2.0.js"></script>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+</body>
+
+<script>
+    if (BABYLON.Engine.isSupported()) {
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var scene = new BABYLON.Scene(engine);
+
+        var camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(0, 0, -10), scene);
+        var light0 = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(0, 100, 100), scene);
+
+        var plane = function (size) {
+            var plane = new BABYLON.Mesh(name, scene);
+
+            var indices = [];
+            var positions = [];
+            var normals = [];
+            var uvs = [];
+
+            // Vertices
+            var halfSize = size / 2.0;
+            positions.push(-halfSize, -halfSize, 0);
+            normals.push(0, 0, -1.0);
+            uvs.push(0.0, 0.0);
+
+            positions.push(halfSize, -halfSize, 0);
+            normals.push(0, 0, -1.0);
+            uvs.push(1.0, 0.0);
+
+            positions.push(halfSize, halfSize, 0);
+            normals.push(0, 0, -1.0);
+            uvs.push(1.0, 1.0);
+
+            positions.push(-halfSize, halfSize, 0);
+            normals.push(0, 0, -1.0);
+            uvs.push(0.0, 1.0);
+
+            // Indices
+            indices.push(0);
+            indices.push(1);
+            indices.push(2);
+
+            indices.push(0);
+            indices.push(2);
+            indices.push(3);
+
+            plane.setVerticesData(positions, BABYLON.VertexBuffer.PositionKind);
+            plane.setVerticesData(normals, BABYLON.VertexBuffer.NormalKind);
+            plane.setVerticesData(uvs, BABYLON.VertexBuffer.UVKind);
+            plane.setIndices(indices);
+
+            return plane;
+        }
+
+        var p = new plane(1);
+        scene.meshes.push(p);
+
+        // Render loop
+        var renderLoop = function () {
+            scene.render();
+        };
+
+        // Launch render loop
+        engine.runRenderLoop(renderLoop);
+    }
+</script>
+</html>

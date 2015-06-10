@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ResourceConverter
 {
-	class Text : IResource 
+	class Text : Resource 
 	{
 		String Value { get; set; }
 
 		#region IResource Membres
 
-		public void Read ( FileUtils.Reader source, int size )
+		public override void Read ( FileUtils.Reader source, int size )
 		{
 			var reader = source.GetTextReader(Encoding.ASCII);
 			char[] text = new char[size];
