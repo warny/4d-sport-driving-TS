@@ -1,4 +1,7 @@
-﻿module Resources {
+﻿/// <reference path="babylon.2.0.d.ts"/>
+
+
+module Resources {
     export class Color {
         Red: number;
         Green: number;
@@ -272,6 +275,156 @@
             new Color(0xB0, 0xB0, 0xB0),
             new Color(0xFC, 0xFC, 0xFC, 0x80)
         ];
+
+    }
+
+    export class Material {
+        static CreateMaterials(scene: BABYLON.Scene): BABYLON.Material[] {
+            var materials: BABYLON.Material[] = new Array<BABYLON.Material>();
+
+            materials[0x00] = this.CreateMaterial(scene, "0x00", new Color(0x00, 0x00, 0x00));
+            materials[0x01] = this.CreateMaterial(scene, "0x01", new Color(0x00, 0x00, 0xA8));
+            materials[0x02] = this.CreateMaterial(scene, "0x02", new Color(0x00, 0xA8, 0x00));
+            materials[0x03] = this.CreateMaterial(scene, "0x03", new Color(0x00, 0xA8, 0xA8));
+            materials[0x04] = this.CreateMaterial(scene, "0x04", new Color(0xA8, 0x00, 0x00));
+            materials[0x05] = this.CreateMaterial(scene, "0x05", new Color(0xA8, 0x00, 0xA8));
+            materials[0x06] = this.CreateMaterial(scene, "0x06", new Color(0xA8, 0x54, 0x00));
+            materials[0x07] = this.CreateMaterial(scene, "0x07", new Color(0xA8, 0xA8, 0xA8));
+            materials[0x08] = this.CreateMaterial(scene, "0x08", new Color(0x54, 0x54, 0x54));
+            materials[0x09] = this.CreateMaterial(scene, "0x09", new Color(0x54, 0x54, 0xFC));
+            materials[0x0A] = this.CreateMaterial(scene, "0x0A", new Color(0x54, 0xFC, 0x54));
+            materials[0x0B] = this.CreateMaterial(scene, "0x0B", new Color(0x54, 0xFC, 0xFC));
+            materials[0x0C] = this.CreateMaterial(scene, "0x0C", new Color(0xFC, 0x54, 0x54));
+            materials[0x0D] = this.CreateMaterial(scene, "0x0D", new Color(0xFC, 0x54, 0xFC));
+            materials[0x0E] = this.CreateMaterial(scene, "0x0E", new Color(0xFC, 0xFC, 0x54));
+            materials[0x0F] = this.CreateMaterial(scene, "0x0F", new Color(0xFC, 0xFC, 0xFC));
+            materials[0x10] = this.CreateMaterial(scene, "0x10", new Color(0x24, 0x68, 0x20));
+            materials[0x11] = this.CreateMaterial(scene, "0x11", new Color(0x5C, 0xFC, 0xFC));
+            materials[0x12] = this.CreateMaterial(scene, "0x12", new Color(0xFC, 0xFC, 0xFC));
+            materials[0x13] = this.CreateMaterial(scene, "0x13", new Color(0x48, 0x48, 0x48));
+            materials[0x14] = this.CreateMaterial(scene, "0x14", new Color(0x38, 0x38, 0x38));
+            materials[0x15] = this.CreateMaterial(scene, "0x15", new Color(0xFC, 0xFC, 0x54));
+            materials[0x16] = this.CreateMaterial(scene, "0x16", new Color(0x48, 0x48, 0x48));
+            materials[0x17] = this.CreateMaterial(scene, "0x17", new Color(0x20, 0x20, 0x20));
+            materials[0x18] = this.CreateMaterial(scene, "0x18", new Color(0xFC, 0xFC, 0x54));
+            materials[0x19] = this.CreateMaterial(scene, "0x19", new Color(0x9C, 0x64, 0x38));
+            materials[0x1A] = this.CreateMaterial(scene, "0x1A", new Color(0xB4, 0x80, 0x54));
+            materials[0x1B] = this.CreateMaterial(scene, "0x1B", new Color(0xCC, 0xA0, 0x80));
+            materials[0x1C] = this.CreateMaterial(scene, "0x1C", new Color(0xD8, 0xFC, 0xFC));
+            materials[0x1D] = this.CreateMaterial(scene, "0x1D", new Color(0x9C, 0xFC, 0xFC));
+            materials[0x1E] = this.CreateMaterial(scene, "0x1E", new Color(0x5C, 0xFC, 0xFC));
+            materials[0x1F] = this.CreateMaterial(scene, "0x1F", new Color(0xE4, 0xC4, 0xAC));
+            materials[0x20] = this.CreateMaterial(scene, "0x20", new Color(0xC0, 0x90, 0x6C));
+            materials[0x21] = this.CreateMaterial(scene, "0x21", new Color(0x9C, 0x64, 0x38));
+            materials[0x22] = this.CreateMaterial(scene, "0x22", new Color(0x9C, 0x9C, 0xFC));
+            materials[0x23] = this.CreateMaterial(scene, "0x23", new Color(0xFC, 0x40, 0x40));
+            materials[0x24] = this.CreateMaterial(scene, "0x24", new Color(0xFC, 0x7C, 0x7C));
+            materials[0x25] = this.CreateMaterial(scene, "0x25", new Color(0xFC, 0x40, 0xFC));
+            materials[0x26] = this.CreateMaterial(scene, "0x26", new Color(0x38, 0x38, 0x38));
+            materials[0x27] = this.CreateMaterial(scene, "0x27", new Color(0x20, 0x20, 0x20));
+            materials[0x28] = this.CreateMaterial(scene, "0x28", new Color(0xC0, 0xC0, 0xC0));
+            materials[0x29] = this.CreateMaterial(scene, "0x29", new Color(0x00, 0xA8, 0xA8));
+            materials[0x2A] = this.CreateMaterial(scene, "0x2A", new Color(0x54, 0xFC, 0xFC));
+            materials[0x2B] = this.CreateMaterial(scene, "0x2B", new Color(0x54, 0x54, 0x54));
+            materials[0x2C] = this.CreateMaterial(scene, "0x2C", new Color(0x00, 0x00, 0x00));
+            materials[0x2D] = this.CreateMaterial(scene, "0x2D", new Color(0xA8, 0x00, 0x00));
+            materials[0x2E] = this.CreateMaterial(scene, "0x2E", new Color(0xA8, 0x00, 0x00));
+            materials[0x2F] = this.CreateMaterial(scene, "0x2F", new Color(0xFC, 0x54, 0x54));
+            materials[0x30] = this.CreateMaterial(scene, "0x30", new Color(0x00, 0x00, 0x7C));
+            materials[0x31] = this.CreateMaterial(scene, "0x31", new Color(0x00, 0x00, 0xA8));
+            materials[0x32] = this.CreateMaterial(scene, "0x32", new Color(0x00, 0x00, 0xD0));
+            materials[0x33] = this.CreateMaterial(scene, "0x33", new Color(0x00, 0x04, 0xFC));
+            materials[0x34] = this.CreateMaterial(scene, "0x34", new Color(0xB4, 0x00, 0x00));
+            materials[0x35] = this.CreateMaterial(scene, "0x35", new Color(0xE4, 0x00, 0x00));
+            materials[0x36] = this.CreateMaterial(scene, "0x36", new Color(0xFC, 0x20, 0x20));
+            materials[0x37] = this.CreateMaterial(scene, "0x37", new Color(0xFC, 0x40, 0x40));
+            materials[0x38] = this.CreateMaterial(scene, "0x38", new Color(0x54, 0x54, 0x54));
+            materials[0x39] = this.CreateMaterial(scene, "0x39", new Color(0x60, 0x60, 0x60));
+            materials[0x3A] = this.CreateMaterial(scene, "0x3A", new Color(0x70, 0x70, 0x70));
+            materials[0x3B] = this.CreateMaterial(scene, "0x3B", new Color(0x7C, 0x7C, 0x7C));
+            materials[0x3C] = this.CreateMaterial(scene, "0x3C", new Color(0xE4, 0xD8, 0x00));
+            materials[0x3D] = this.CreateMaterial(scene, "0x3D", new Color(0xFC, 0xF4, 0x20));
+            materials[0x3E] = this.CreateMaterial(scene, "0x3E", new Color(0xFC, 0xF8, 0x5C));
+            materials[0x3F] = this.CreateMaterial(scene, "0x3F", new Color(0xFC, 0xFC, 0x9C));
+            materials[0x40] = this.CreateMaterial(scene, "0x40", new Color(0x00, 0x9C, 0x9C));
+            materials[0x41] = this.CreateMaterial(scene, "0x41", new Color(0x00, 0xCC, 0xCC));
+            materials[0x42] = this.CreateMaterial(scene, "0x42", new Color(0x00, 0xE4, 0xE4));
+            materials[0x43] = this.CreateMaterial(scene, "0x43", new Color(0x40, 0xFC, 0xFC));
+            materials[0x44] = this.CreateMaterial(scene, "0x44", new Color(0x50, 0x84, 0x00));
+            materials[0x45] = this.CreateMaterial(scene, "0x45", new Color(0x74, 0xB4, 0x00));
+            materials[0x46] = this.CreateMaterial(scene, "0x46", new Color(0x90, 0xE4, 0x00));
+            materials[0x47] = this.CreateMaterial(scene, "0x47", new Color(0xA0, 0xFC, 0x00));
+            materials[0x48] = this.CreateMaterial(scene, "0x48", new Color(0x44, 0x00, 0x70));
+            materials[0x49] = this.CreateMaterial(scene, "0x49", new Color(0x60, 0x00, 0x9C));
+            materials[0x4A] = this.CreateMaterial(scene, "0x4A", new Color(0x80, 0x00, 0xCC));
+            materials[0x4B] = this.CreateMaterial(scene, "0x4B", new Color(0xA8, 0x00, 0xFC));
+            materials[0x4C] = this.CreateMaterial(scene, "0x4C", new Color(0xB0, 0xB0, 0xB0));
+            materials[0x4D] = this.CreateMaterial(scene, "0x4D", new Color(0xC0, 0xC0, 0xC0));
+            materials[0x4E] = this.CreateMaterial(scene, "0x4E", new Color(0xCC, 0xCC, 0xCC));
+            materials[0x4F] = this.CreateMaterial(scene, "0x4F", new Color(0xDC, 0xDC, 0xDC));
+            materials[0x50] = this.CreateMaterial(scene, "0x50", new Color(0x6C, 0x58, 0x00));
+            materials[0x51] = this.CreateMaterial(scene, "0x51", new Color(0x84, 0x74, 0x00));
+            materials[0x52] = this.CreateMaterial(scene, "0x52", new Color(0xB4, 0xA4, 0x00));
+            materials[0x53] = this.CreateMaterial(scene, "0x53", new Color(0xCC, 0xC0, 0x00));
+            materials[0x54] = this.CreateMaterial(scene, "0x54", new Color(0x70, 0x00, 0x00));
+            materials[0x55] = this.CreateMaterial(scene, "0x55", new Color(0x84, 0x00, 0x00));
+            materials[0x56] = this.CreateMaterial(scene, "0x56", new Color(0xB4, 0x00, 0x00));
+            materials[0x57] = this.CreateMaterial(scene, "0x57", new Color(0xCC, 0x00, 0x00));
+            materials[0x58] = this.CreateMaterial(scene, "0x58", new Color(0x00, 0x00, 0x40));
+            materials[0x59] = this.CreateMaterial(scene, "0x59", new Color(0x28, 0x00, 0x40));
+            materials[0x5A] = this.CreateMaterial(scene, "0x5A", new Color(0x34, 0x00, 0x58));
+            materials[0x5B] = this.CreateMaterial(scene, "0x5B", new Color(0x50, 0x00, 0x84));
+            materials[0x5C] = this.CreateMaterial(scene, "0x5C", new Color(0x38, 0x38, 0x38));
+            materials[0x5D] = this.CreateMaterial(scene, "0x5D", new Color(0x48, 0x48, 0x48));
+            materials[0x5E] = this.CreateMaterial(scene, "0x5E", new Color(0xCC, 0xCC, 0xCC));
+            materials[0x5F] = this.CreateMaterial(scene, "0x5F", new Color(0x74, 0xB4, 0x00));
+            materials[0x60] = this.CreateMaterial(scene, "0x60", new Color(0xFC, 0xFC, 0xFC));
+            materials[0x61] = this.CreateMaterial(scene, "0x61", new Color(0xA8, 0xA8, 0xA8));
+            materials[0x62] = this.CreateMaterial(scene, "0x62", new Color(0x9C, 0x64, 0x38));
+            materials[0x63] = this.CreateMaterial(scene, "0x63", new Color(0xC0, 0x60, 0x2C));
+            materials[0x64] = this.CreateMaterial(scene, "0x64", new Color(0x00, 0x80, 0xD0));
+            materials[0x65] = this.CreateMaterial(scene, "0x65", new Color(0x84, 0xE0, 0x84));
+            materials[0x66] = this.CreateMaterial(scene, "0x66", new Color(0x70, 0xC4, 0x6C));
+            materials[0x67] = this.CreateMaterial(scene, "0x67", new Color(0x58, 0xA8, 0x58));
+            materials[0x68] = this.CreateMaterial(scene, "0x68", new Color(0x50, 0x9C, 0x4C));
+            materials[0x69] = this.CreateMaterial(scene, "0x69", new Color(0x38, 0x80, 0x34));
+            materials[0x6A] = this.CreateMaterial(scene, "0x6A", new Color(0xDC, 0xDC, 0xDC));
+            materials[0x6B] = this.CreateMaterial(scene, "0x6B", new Color(0xB0, 0xB0, 0xB0));
+            materials[0x6C] = this.CreateMaterial(scene, "0x6C", new Color(0x90, 0x54, 0x10));
+            materials[0x6D] = this.CreateMaterial(scene, "0x6D", new Color(0x6C, 0x58, 0x00));
+            materials[0x6E] = this.CreateMaterial(scene, "0x6E", new Color(0x58, 0x00, 0x00));
+            materials[0x6F] = this.CreateMaterial(scene, "0x6F", new Color(0x74, 0x40, 0x08));
+            materials[0x70] = this.CreateMaterial(scene, "0x70", new Color(0x70, 0x00, 0x00));
+            materials[0x71] = this.CreateMaterial(scene, "0x71", new Color(0x80, 0x54, 0x2C));
+            materials[0x72] = this.CreateMaterial(scene, "0x72", new Color(0x54, 0x00, 0x54));
+            materials[0x73] = this.CreateMaterial(scene, "0x73", new Color(0xA4, 0x00, 0xA4));
+            materials[0x74] = this.CreateMaterial(scene, "0x74", new Color(0xE0, 0x00, 0xE4));
+            materials[0x75] = this.CreateMaterial(scene, "0x75", new Color(0xFC, 0x5C, 0xFC));
+            materials[0x76] = this.CreateMaterial(scene, "0x76", new Color(0x00, 0x00, 0x00));
+            materials[0x77] = this.CreateMaterial(scene, "0x77", new Color(0x48, 0x48, 0x48));
+            materials[0x78] = this.CreateMaterial(scene, "0x78", new Color(0x2C, 0x2C, 0x2C));
+            materials[0x79] = this.CreateMaterial(scene, "0x79", new Color(0xFC, 0xFC, 0xFC));
+            materials[0x7A] = this.CreateMaterial(scene, "0x7A", new Color(0xB0, 0xB0, 0xB0));
+            materials[0x7B] = this.CreateMaterial(scene, "0x7B", new Color(0xFC, 0xF8, 0x5C));
+            materials[0x7C] = this.CreateMaterial(scene, "0x7C", new Color(0xFC, 0xAC, 0x54));
+            materials[0x7D] = this.CreateMaterial(scene, "0x7D", new Color(0xFC, 0x00, 0x00));
+            materials[0x7E] = this.CreateMaterial(scene, "0x7E", new Color(0x9C, 0x00, 0x00));
+            materials[0x7F] = this.CreateMaterial(scene, "0x7F", new Color(0xFC, 0x54, 0x54));
+            materials[0x80] = this.CreateMaterial(scene, "0x80", new Color(0xDC, 0xDC, 0xDC));
+
+            return materials;
+        }
+
+        static CreateMaterial(scene: BABYLON.Scene, name: string, color: Color): BABYLON.Material {
+            var material = new BABYLON.StandardMaterial(name, scene);
+            material.diffuseColor = new BABYLON.Color3(color.Red / 255, color.Green / 255, color.Blue / 255);
+            material.alpha = color.Alpha / 255;
+            material.backFaceCulling = false;
+            return material;
+       }
+
+
+
     }
 
 }

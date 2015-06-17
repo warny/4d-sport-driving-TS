@@ -415,6 +415,7 @@
     <Content Include="Graphics\terrain\0x11.png" />
     <Content Include="Graphics\terrain\0x12.png" />
     <Content Include="index.html" />
+    <Content Include="objects.js" />
     <Content Include="Resources.ts" />
     <Content Include="ResourcesFile.ts" />
     <Content Include="ResourceViewer.html" />
