@@ -10,6 +10,20 @@
 <body>
     <canvas id="track" height="480" width="480"></canvas>
     <script type="text/ecmascript">
+        function addEventHandler(obj, evt, handler) {
+            if (obj.addEventListener) {
+                // W3C method
+                obj.addEventListener(evt, handler, false);
+            } else if (obj.attachEvent) {
+                // IE method.
+                obj.attachEvent('on' + evt, handler);
+            } else {
+                // Old school method.
+                obj['on' + evt] = handler;
+            }
+        }
+
+
         function readTrack(trackFile) {
             var stuntTrack = new Tracks.StuntTrack();
             var track = stuntTrack.Read(trackFile);
@@ -35,6 +49,37 @@
                 }
             }
         }
+
+        if (window.FileReader) {
+            addEventHandler(window, 'load', function () {
+                var drop = document.getElementById('track');
+
+                function cancel(e) {
+                    if (e.preventDefault) { e.preventDefault(); }
+                    return false;
+                }
+
+                // Tells the browser that we *can* drop on this target
+                addEventHandler(drop, 'dragover', cancel);
+                addEventHandler(drop, 'dragenter', cancel);
+
+                addEventHandler(drop, 'drop', function (e) {
+                    e = e || window.event; // get window.event if e argument missing (in IE)   
+                    if (e.preventDefault) { e.preventDefault(); } // stops the browser from redirecting off to the image.
+
+                    var dt = e.dataTransfer;
+                    var files = dt.files;
+                    var file = files[0];
+
+                    FileUtils.Reader.ReadBlob(file, readTrack);
+
+                    return false;
+                });
+            });
+        } else {
+            document.getElementById('status').innerHTML = 'Your browser does not support the HTML5 FileReader.';
+        }
+
 
     </script>
 

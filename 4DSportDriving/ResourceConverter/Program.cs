@@ -23,6 +23,7 @@ namespace ResourceConverter
 
 					int primitiveIndex = 0;
 					foreach (var primitive in shape.Primitives) {
+						function.WriteLine("    ");
 						switch (primitive.Type) {
 							case PrimitiveTypeEnum.Particule:
 								break;
@@ -31,11 +32,11 @@ namespace ResourceConverter
 									var p1 = shape.Vertices[primitive.Indices[0]];
 									var p2 = shape.Vertices[primitive.Indices[1]];
 								function.WriteLine("	shape = BABYLON.Mesh.CreateLines(\"{0}-{1:00}\",[");
-								function.WriteLine("		 new BABYLON.Vector3({0}, {1}, {2}),", p1.X, p1.Y, p1.Z);
-								function.WriteLine("		 new BABYLON.Vector3({0}, {1}, {2})", p2.X, p2.Y, p2.Z);
+								function.WriteLine("		 new BABYLON.Vector3({0}, {1}, {2}),", p1.X * 300 / 1026, p1.Y * 300 / 1026, p1.Z * 300 / 1026);
+								function.WriteLine("		 new BABYLON.Vector3({0}, {1}, {2})", p2.X * 300 / 1026, p2.Y * 300 / 1026, p2.Z * 300 / 1026);
 								function.WriteLine("	], scene);");
 								}
-								break;						  
+								break;
 							case PrimitiveTypeEnum.Polygone3:
 							case PrimitiveTypeEnum.Polygone4:
 							case PrimitiveTypeEnum.Polygone5:
@@ -44,23 +45,22 @@ namespace ResourceConverter
 							case PrimitiveTypeEnum.Polygone8:
 							case PrimitiveTypeEnum.Polygone9:
 							case PrimitiveTypeEnum.Polygone10: {
-								function.WriteLine("    shape = new BABYLON.Mesh(\"{0}-{1:00}\", scene);", shape.Name, primitiveIndex);
-									function.WriteLine("    ");
+									function.WriteLine("    shape = new BABYLON.Mesh(\"{0}-{1:00}\", scene);", shape.Name, primitiveIndex);
 									function.WriteLine("    var indices = [];");
 									function.WriteLine("    var positions = [];");
 									function.WriteLine("    var normals = [];");
 									function.WriteLine("    var uvs = [];");
 
 									var p1 = shape.Vertices[primitive.Indices[0]];
-									Point point1 = new Point(p1.X, p1.Y, p1.Z);
+									Point point1 = new Point(p1.X * 300 / 1026, p1.Y * 300 / 1026, p1.Z * 300 / 1026);
 
 									var p2 = shape.Vertices[primitive.Indices[1]];
-									Point point2 = new Point(p2.X, p2.Y, p2.Z);
+									Point point2 = new Point(p2.X * 300 / 1026, p2.Y * 300 / 1026, p2.Z * 300 / 1026);
 
 									Vector v2 = point2 - point1;
 
 									var p3 = shape.Vertices[primitive.Indices[2]];
-									Point point3 = new Point(p3.X, p3.Y, p3.Z);
+									Point point3 = new Point(p3.X * 300 / 1026, p3.Y * 300 / 1026, p3.Z * 300 / 1026);
 									Vector v3 = point3 - point1;
 
 									Vector normal = Vector.Product(v3, v2).Normalize();
@@ -74,7 +74,7 @@ namespace ResourceConverter
 
 									for (int i = 2; i < primitive.Indices.Length; i++) {
 										p3 = shape.Vertices[primitive.Indices[i]];
-										point3 = new Point(p3.X, p3.Y, p3.Z);
+										point3 = new Point(p3.X * 300 / 1026, p3.Y * 300 / 1026, p3.Z * 300 / 1026);
 
 										function.WriteLine("    positions.push({0:0.00}, {1:0.00}, {2:0.00});", point3[0], point3[1], point3[2]);
 										function.WriteLine("    normals.push({0:0.00}, {1:0.00}, {2:0.00});", normal[0], normal[1], normal[2]);
@@ -93,14 +93,15 @@ namespace ResourceConverter
 							case PrimitiveTypeEnum.Sphere: {
 									var p1 = shape.Vertices[primitive.Indices[0]];
 									var p2 = shape.Vertices[primitive.Indices[2]];
-									Point P1 = new Point(p1.X, p1.Y, p1.Z);
-									Point P2 = new Point(p1.X, p1.Y, p1.Z);
+									Point P1 = new Point(p1.X * 300 / 1026, p1.Y * 300 / 1026, p1.Z * 300 / 1026);
+									Point P2 = new Point(p1.X * 300 / 1026, p1.Y * 300 / 1026, p1.Z * 300 / 1026);
 									double radius = Point.Distance(P1, P2);
 
 									function.WriteLine("    shape = new BABYLON.Mesh.CreateSphere(\"{0}-{1:00}\", 10.0, {2:00}, scene);", shape.Name, primitiveIndex, radius);
 								}
 								break;
 							case PrimitiveTypeEnum.Wheel:
+								function.WriteLine("    shape = new BABYLON.Mesh(\"{0}-{1:00}\", scene);", shape.Name, primitiveIndex);
 								break;
 							default:
 								break;
