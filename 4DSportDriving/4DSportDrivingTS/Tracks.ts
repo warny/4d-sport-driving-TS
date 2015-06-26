@@ -33,7 +33,11 @@ module Tracks {
             for (var x: number = 0; x < track.SizeX; x++) {
                 track.Elements[x] = new Array<Element>(track.SizeY);
                 for (var y: number = 0; y < track.SizeY; y++) {
-                    track.Elements[x][y] = new Element(terrain[y][x], objects[size-1-y][x]);
+                    var t = terrain[y][x];
+                    if (t < 0) t += 256;
+                    var o = objects[size - 1 - y][x];
+                    if (o < 0) o += 256;
+                    track.Elements[x][y] = new Element(t, o);
                 }
             }
             return track;
@@ -92,8 +96,6 @@ module Tracks {
             this.Terrain = terrain;
             this.IsReplacement = true;
             this.ReplaceTerrain = false;
-            this.DimensionX = dimensionX;
-            this.DimensionY = dimensionY;
         }
     }
 
@@ -130,9 +132,9 @@ module Tracks {
     export var TerrainTiles = {
         0x00: new TerrainTile("Graphics/terrain/0x00.png", 0, 0),
         0x01: new TerrainTile("Graphics/terrain/0x01.png", 0, 0, new Objects(1, 1, OrientationEnum.South, ["lake"])),
-        0x02: new TerrainTile("Graphics/terrain/0x02.png", 0, 0, new Objects(1, 1, OrientationEnum.South, ["lakc"])),
-        0x03: new TerrainTile("Graphics/terrain/0x03.png", 0, 0, new Objects(1, 1, OrientationEnum.North, ["lakc"])),
-        0x04: new TerrainTile("Graphics/terrain/0x04.png", 0, 0, new Objects(1, 1, OrientationEnum.East, ["lakc"])),
+        0x02: new TerrainTile("Graphics/terrain/0x02.png", 0, 0, new Objects(1, 1, OrientationEnum.North, ["lakc"])),
+        0x03: new TerrainTile("Graphics/terrain/0x03.png", 0, 0, new Objects(1, 1, OrientationEnum.East, ["lakc"])),
+        0x04: new TerrainTile("Graphics/terrain/0x04.png", 0, 0, new Objects(1, 1, OrientationEnum.South, ["lakc"])),
         0x05: new TerrainTile("Graphics/terrain/0x05.png", 0, 0, new Objects(1, 1, OrientationEnum.West, ["lakc"])),
         0x06: new TerrainTile("Graphics/terrain/0x06.png", 131, 131, new Objects(1, 1, OrientationEnum.West, ["high"])),
         0x07: new TerrainTile("Graphics/terrain/0x07.png", 0, 0, new Objects(1, 1, OrientationEnum.North, ["goup"])),
@@ -151,8 +153,12 @@ module Tracks {
 
     export var TrackTiles = {
         0x01: new Tile("Graphics/track/0x01.png", new Objects(1, 1, OrientationEnum.South, ["road", "fini"], ["zroa", "zfin"])),
-        0x04: new Tile("Graphics/track/0x04.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"])),
-        0x05: new Tile("Graphics/track/0x05.png", new Objects(1, 1, OrientationEnum.West,  ["road"], ["zroa"])),
+        0x04: new Tile("Graphics/track/0x04.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"]),
+            new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ['rdup'], ['zrdu']),
+            new ReplacementObjects(0x09, 1, 1, OrientationEnum.South, ['rdup'], ['zrdu'])),
+        0x05: new Tile("Graphics/track/0x05.png", new Objects(1, 1, OrientationEnum.West,  ["road"], ["zroa"]),
+            new ReplacementObjects(0x0a, 1, 1, OrientationEnum.West, ['rdup'], ['zrdu']),
+            new ReplacementObjects(0x08, 1, 1, OrientationEnum.East, ['rdup'], ['zrdu'])),
         0x06: new Tile("Graphics/track/0x06.png", new Objects(1, 1, OrientationEnum.East,  ["turn"], ["ztur"])),
         0x07: new Tile("Graphics/track/0x07.png", new Objects(1, 1, OrientationEnum.North, ["turn"], ["ztur"])),
         0x08: new Tile("Graphics/track/0x08.png", new Objects(1, 1, OrientationEnum.South, ["turn"], ["ztur"])),
@@ -161,8 +167,12 @@ module Tracks {
         0x0b: new Tile("Graphics/track/0x0b.png", new Objects(2, 2, OrientationEnum.North, ["stur"], ["zstu"])),
         0x0c: new Tile("Graphics/track/0x0c.png", new Objects(2, 2, OrientationEnum.South, ["stur"], ["zstu"])),
         0x0d: new Tile("Graphics/track/0x0d.png", new Objects(2, 2, OrientationEnum.West,  ["stur"], ["zstu"])),
-        0x0e: new Tile("Graphics/track/0x0e.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"], [1])),
-        0x0f: new Tile("Graphics/track/0x0f.png", new Objects(1, 1, OrientationEnum.West, ["road"], ["zroa"], [1])),
+        0x0e: new Tile("Graphics/track/0x0e.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"], [1]),
+            new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ['rdup'], ['zrdu'], [1]),
+            new ReplacementObjects(0x09, 1, 1, OrientationEnum.South, ['rdup'], ['zrdu'], [1])),
+        0x0f: new Tile("Graphics/track/0x0f.png", new Objects(1, 1, OrientationEnum.West, ["road"], ["zroa"], [1]),
+            new ReplacementObjects(0x08, 1, 1, OrientationEnum.East, ['rdup'], ['zrdu'], [1]),
+            new ReplacementObjects(0x0a, 1, 1, OrientationEnum.West, ['rdup'], ['zrdu'], [1])),
         0x10: new Tile("Graphics/track/0x10.png", new Objects(1, 1, OrientationEnum.East, ["turn"], ["ztur"], [1])),
         0x11: new Tile("Graphics/track/0x11.png", new Objects(1, 1, OrientationEnum.North, ["turn"], ["ztur"], [1])),
         0x12: new Tile("Graphics/track/0x12.png", new Objects(1, 1, OrientationEnum.South, ["turn"], ["ztur"], [1])),
@@ -171,8 +181,12 @@ module Tracks {
         0x15: new Tile("Graphics/track/0x15.png", new Objects(2, 2, OrientationEnum.North, ["stur"], ["zstu"], [1])),
         0x16: new Tile("Graphics/track/0x16.png", new Objects(2, 2, OrientationEnum.South, ["stur"], ["zstu"], [1])),
         0x17: new Tile("Graphics/track/0x17.png", new Objects(2, 2, OrientationEnum.West,  ["stur"], ["zstu"], [1])),
-        0x18: new Tile("Graphics/track/0x18.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"], [2])),
-        0x19: new Tile("Graphics/track/0x19.png", new Objects(1, 1, OrientationEnum.West, ["road"], ["zroa"], [2])),
+        0x18: new Tile("Graphics/track/0x18.png", new Objects(1, 1, OrientationEnum.South, ["road"], ["zroa"], [2]),
+            new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ['rdup'], ['zrdu'], [2]),
+            new ReplacementObjects(0x09, 1, 1, OrientationEnum.South, ['rdup'], ['zrdu'], [2])),
+        0x19: new Tile("Graphics/track/0x19.png", new Objects(1, 1, OrientationEnum.West, ["road"], ["zroa"], [2]),
+            new ReplacementObjects(0x08, 1, 1, OrientationEnum.East, ['rdup'], ['zrdu'], [2]),
+            new ReplacementObjects(0x0a, 1, 1, OrientationEnum.West, ['rdup'], ['zrdu'], [2])),
         0x1a: new Tile("Graphics/track/0x1a.png", new Objects(1, 1, OrientationEnum.East, ["turn"], ["ztur"], [2])),
         0x1b: new Tile("Graphics/track/0x1b.png", new Objects(1, 1, OrientationEnum.North, ["turn"], ["ztur"], [2])),
         0x1c: new Tile("Graphics/track/0x1c.png", new Objects(1, 1, OrientationEnum.South, ["turn"], ["ztur"], [2])),
@@ -183,9 +197,9 @@ module Tracks {
         0x21: new Tile("Graphics/track/0x21.png", new Objects(2, 2, OrientationEnum.West,  ["stur"], ["zstu"], [2])),
         0x22: new Tile("Graphics/track/0x22.png", new Objects(1, 1, OrientationEnum.South, ["elrd"], ["zelr"])),
         0x23: new Tile("Graphics/track/0x23.png", new Objects(1, 1, OrientationEnum.West, ["elrd"], ["zelr"])),
-        0x24: new Tile("Graphics/track/0x24.png", new Objects(1, 1, OrientationEnum.West, ["ramp"], ["zram"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
-        0x25: new Tile("Graphics/track/0x25.png", new Objects(1, 1, OrientationEnum.East, ["ramp"], ["zram"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
-        0x26: new Tile("Graphics/track/0x26.png", new Objects(1, 1, OrientationEnum.North, ["ramp"], ["zram"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
+        0x24: new Tile("Graphics/track/0x24.png", new Objects(1, 1, OrientationEnum.West, ["ramp"], ["zram"]), new ReplacementObjects(0x08, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
+        0x25: new Tile("Graphics/track/0x25.png", new Objects(1, 1, OrientationEnum.East, ["ramp"], ["zram"]), new ReplacementObjects(0x0a, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
+        0x26: new Tile("Graphics/track/0x26.png", new Objects(1, 1, OrientationEnum.North, ["ramp"], ["zram"]), new ReplacementObjects(0x09, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
         0x27: new Tile("Graphics/track/0x27.png", new Objects(1, 1, OrientationEnum.South, ["ramp"], ["zram"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.South, ["elsp"], ["zesp"])),
         0x28: new Tile("Graphics/track/0x28.png", new Objects(1, 1, OrientationEnum.North, ["rban"], ["zrba"])),
         0x29: new Tile("Graphics/track/0x29.png", new Objects(1, 1, OrientationEnum.West, ["rban"], ["zrba"])),
@@ -203,14 +217,14 @@ module Tracks {
         0x35: new Tile("Graphics/track/0x35.png", new Objects(2, 2, OrientationEnum.North, ["btur"], ["zbtu"])),
         0x36: new Tile("Graphics/track/0x36.png", new Objects(2, 2, OrientationEnum.South, ["btur"], ["zbtu"])),
         0x37: new Tile("Graphics/track/0x37.png", new Objects(2, 2, OrientationEnum.West, ["btur"], ["zbtu"])),
-        0x38: new Tile("Graphics/track/0x38.png", new Objects(1, 1, OrientationEnum.West, ["brid"], ["zbri"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
-        0x39: new Tile("Graphics/track/0x39.png", new Objects(1, 1, OrientationEnum.East, ["brid"], ["zbri"]),  new ReplacementObjects(0x07, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
-        0x3a: new Tile("Graphics/track/0x3a.png", new Objects(1, 1, OrientationEnum.North, ["brid"], ["zbri"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
+        0x38: new Tile("Graphics/track/0x38.png", new Objects(1, 1, OrientationEnum.West, ["brid"], ["zbri"]), new ReplacementObjects(0x08, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
+        0x39: new Tile("Graphics/track/0x39.png", new Objects(1, 1, OrientationEnum.East, ["brid"], ["zbri"]),  new ReplacementObjects(0x0a, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
+        0x3a: new Tile("Graphics/track/0x3a.png", new Objects(1, 1, OrientationEnum.North, ["brid"], ["zbri"]), new ReplacementObjects(0x09, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
         0x3b: new Tile("Graphics/track/0x3b.png", new Objects(1, 1, OrientationEnum.South, ["brid"], ["zbri"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.South, ["elsp"], ["zesp"])),
         0x3c: new Tile("Graphics/track/0x3c.png", new Objects(2, 2, OrientationEnum.South, ["chi2"], ["zch2"])),
-        0x3d: new Tile("Graphics/track/0x3d.png", new Objects(2, 2, OrientationEnum.East, ["chi2"], ["zch2"])),
+        0x3d: new Tile("Graphics/track/0x3d.png", new Objects(2, 2, OrientationEnum.East, ["chi1"], ["zch1"])),
         0x3e: new Tile("Graphics/track/0x3e.png", new Objects(2, 2, OrientationEnum.South, ["chi1"], ["zch1"])),
-        0x3f: new Tile("Graphics/track/0x3f.png", new Objects(2, 2, OrientationEnum.East, ["chi1"], ["zch1"])),
+        0x3f: new Tile("Graphics/track/0x3f.png", new Objects(2, 2, OrientationEnum.East, ["chi2"], ["zch2"])),
         0x40: new Tile("Graphics/track/0x40.png", new Objects(1, 2, OrientationEnum.South, ["loo1", "loop"], ["zloo"])),
         0x41: new Tile("Graphics/track/0x41.png", new Objects(1, 2, OrientationEnum.East, ["loo1", "loop"], ["zloo"])),
         0x42: new Tile("Graphics/track/0x42.png", new Objects(1, 1, OrientationEnum.South, ["tunn", "tun2"], ["ztun"])),
@@ -227,24 +241,24 @@ module Tracks {
         0x4d: new Tile("Graphics/track/0x4d.png", new Objects(1, 1, OrientationEnum.South, ["offl"], ["zofl"])),
         0x4e: new Tile("Graphics/track/0x4e.png", new Objects(1, 1, OrientationEnum.West, ["offl"], ["zofl"])),
         0x4f: new Tile("Graphics/track/0x4f.png", new Objects(1, 1, OrientationEnum.North, ["offr"], ["zofr"])),
-        0x50: new Tile("Graphics/track/0x50.png", new Objects(1, 1, OrientationEnum.South, ["offr"], ["zofr"])),
-        0x51: new Tile("Graphics/track/0x51.png", new Objects(1, 1, OrientationEnum.East, ["offr"], ["zofr"])),
+        0x50: new Tile("Graphics/track/0x50.png", new Objects(1, 1, OrientationEnum.East, ["offr"], ["zofr"])),
+        0x51: new Tile("Graphics/track/0x51.png", new Objects(1, 1, OrientationEnum.South, ["offr"], ["zofr"])),
         0x52: new Tile("Graphics/track/0x52.png", new Objects(1, 1, OrientationEnum.West, ["offr"], ["zofr"])),
         0x53: new Tile("Graphics/track/0x53.png", new Objects(1, 1, OrientationEnum.South, ["hpip", "pip2"], ["zhpi"])),
         0x54: new Tile("Graphics/track/0x54.png", new Objects(1, 1, OrientationEnum.East, ["hpip", "pip2"], ["zhpi"])),
         0x55: new Tile("Graphics/track/0x55.png", new Objects(1, 2, OrientationEnum.South, ["vcor"], ["zvcor"])),
         0x56: new Tile("Graphics/track/0x56.png", new Objects(1, 2, OrientationEnum.East, ["vcor"], ["zvcor"])),
         0x57: new Tile("Graphics/track/0x57.png", new Objects(2, 2, OrientationEnum.North, ["sofl"], ["zsol"])),
-        0x58: new Tile("Graphics/track/0x58.png", new Objects(2, 2, OrientationEnum.South, ["sofl"], ["zsol"])),
-        0x59: new Tile("Graphics/track/0x59.png", new Objects(2, 2, OrientationEnum.East, ["sofl"], ["zsol"])),
+        0x58: new Tile("Graphics/track/0x58.png", new Objects(2, 2, OrientationEnum.East, ["sofl"], ["zsol"])),
+        0x59: new Tile("Graphics/track/0x59.png", new Objects(2, 2, OrientationEnum.South, ["sofl"], ["zsol"])),
         0x5a: new Tile("Graphics/track/0x5a.png", new Objects(2, 2, OrientationEnum.West, ["sofl"], ["zsol"])),
         0x5b: new Tile("Graphics/track/0x5b.png", new Objects(2, 2, OrientationEnum.North, ["sofr"], ["zsor"])),
         0x5c: new Tile("Graphics/track/0x5c.png", new Objects(2, 2, OrientationEnum.East, ["sofr"], ["zsor"])),
         0x5d: new Tile("Graphics/track/0x5d.png", new Objects(2, 2, OrientationEnum.South, ["sofr"], ["zsor"])),
         0x5e: new Tile("Graphics/track/0x5e.png", new Objects(2, 2, OrientationEnum.West,  ["sofr"], ["zsor"])),
-        0x5f: new Tile("Graphics/track/0x5f.png", new Objects(1, 1, OrientationEnum.West, ["sram"], ["zsra"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
-        0x60: new Tile("Graphics/track/0x60.png", new Objects(1, 1, OrientationEnum.East, ["sram"], ["zsra"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
-        0x61: new Tile("Graphics/track/0x61.png", new Objects(1, 1, OrientationEnum.North,  ["sram"], ["zsra"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
+        0x5f: new Tile("Graphics/track/0x5f.png", new Objects(1, 1, OrientationEnum.West, ["sram"], ["zsra"]), new ReplacementObjects(0x08, 1, 1, OrientationEnum.West, ["elsp"], ["zesp"])),
+        0x60: new Tile("Graphics/track/0x60.png", new Objects(1, 1, OrientationEnum.East, ["sram"], ["zsra"]), new ReplacementObjects(0x0a, 1, 1, OrientationEnum.East, ["elsp"], ["zesp"])),
+        0x61: new Tile("Graphics/track/0x61.png", new Objects(1, 1, OrientationEnum.North, ["sram"], ["zsra"]), new ReplacementObjects(0x09, 1, 1, OrientationEnum.North, ["elsp"], ["zesp"])),
         0x62: new Tile("Graphics/track/0x62.png", new Objects(1, 1, OrientationEnum.South, ["sram"], ["zsra"]), new ReplacementObjects(0x07, 1, 1, OrientationEnum.South, ["elsp"], ["zesp"])),
         0x63: new Tile("Graphics/track/0x63.png", new Objects(1, 1, OrientationEnum.South, ["elrd"], ["zelr"])),
         0x64: new Tile("Graphics/track/0x64.png", new Objects(1, 1, OrientationEnum.West,  ["elrd"], ["zelr"])),
