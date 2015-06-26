@@ -102,10 +102,10 @@
             shape.material = materials[2];
             scene.meshes.push(shape);
 
-            for (var x=0; x<track.SizeX;x++) {
-                var line = shape = BABYLON.Mesh.CreateLines("lX" + x, [new BABYLON.Vector3(x * tilesize, 10, 0), new BABYLON.Vector3(x * tilesize, 10, -track.SizeX * tilesize)], scene)
-                var line = shape = BABYLON.Mesh.CreateLines("lX" + x, [new BABYLON.Vector3(0, 10, -x * tilesize), new BABYLON.Vector3(track.SizeX * tilesize, 10, -x * tilesize)], scene)
-            }
+            //for (var x=0; x<track.SizeX;x++) {
+            //    var line = shape = BABYLON.Mesh.CreateLines("lX" + x, [new BABYLON.Vector3(x * tilesize, 10, 0), new BABYLON.Vector3(x * tilesize, 10, -track.SizeX * tilesize)], scene)
+            //    var line = shape = BABYLON.Mesh.CreateLines("lX" + x, [new BABYLON.Vector3(0, 10, -x * tilesize), new BABYLON.Vector3(track.SizeX * tilesize, 10, -x * tilesize)], scene)
+            //}
 
             for (var x = 0; x < track.SizeX; x++) for (var y = 0; y < track.SizeY; y++) {
 
@@ -117,12 +117,13 @@
 
                 if (terrainImg != null) {
                     for (var obj in terrainImg.Objects) {
-                        var shapes = shapesBuilders[obj];
-                        if (shapes == null) continue;
-                        var elements = shapes.Elements;
+                        var object = terrainImg.Objects[obj];
+                        var elements = object.Elements;
                         for (var element in elements) {
-                            var mesh = new Tracks.TerrainTiles[elements[element]](scene);
-                            var tileInfo = trackImg.Objects[obj];
+                            var shapes = shapesBuilders[elements[element]];
+                            if (shapes == null) continue;
+                            var mesh = new shapes(scene);
+                            var tileInfo = terrainImg.Objects[obj];
                             mesh.position.x = x * tilesize + tileInfo.ShiftX(300);
                             mesh.position.z = -y * tilesize - tileInfo.ShiftY(300);
                             mesh.position.y = terrainImg.TerrainHeight;
@@ -133,33 +134,31 @@
                 }
 
                 if (trackImg != null) {
+                    var objects = [];
+                    var replacement = false;
                     for (var obj in trackImg.Objects) {
-                        var elements = trackImg.Objects[obj].Elements;
-                        var els = [];
-                        var replacement = false;
-                        for (var element in elements) {
-                            var cel = elements[element];
-                            if (cel.Terrain == el.Terrain) {
-                                if (!replacement) {
-                                    replacement = true
-                                    els = [];
-                                }
-                                if (objcelReplaceTerrain) replaceTerrain = true;
-                                els.push(element);
-                            } else if (cel.Terrain == null && !replacement) {
-                                els.push(element);
+                        var object = trackImg.Objects[obj];
+                        if (object.IsReplacement && object.Terrain == el.Terrain) {
+                            if (!replacement) {
+                                replacement = true
+                                objects = [];
                             }
+                            objects.push(object);
+                        } else if (!replacement && !object.IsReplacement) {
+                            objects.push(object);
                         }
-
-                        for (var element in els) {
-                            var shapes = shapesBuilders[elements[element]];
+                    }
+                    for (var obj in objects) {
+                        var object = objects[obj]
+                        for (var element in object.Elements) {
+                            var shapes = shapesBuilders[object.Elements[element]];
                             if (shapes == null) continue;
                             var mesh = new shapes(scene);
                             var tileInfo = trackImg.Objects[obj];
-                            mesh.position.x = x * tilesize + tileInfo.ShiftX(tilesize);
-                            mesh.position.z = -y * tilesize - tileInfo.ShiftY(tilesize);
-                            mesh.position.y = terrainImg.ObjectsHeight + replaceTerrain ? 0.00 : 1.00;
-                            mesh.rotation.y = tileInfo.Orientation;
+                            mesh.position.x = x * tilesize + object.ShiftX(tilesize);
+                            mesh.position.z = -y * tilesize - object.ShiftY(tilesize);
+                            mesh.position.y = terrainImg.ObjectsHeight + (replaceTerrain ? 0.00 : 1.00);
+                            mesh.rotation.y = object.Orientation;
                             scene.meshes.push(mesh);
                         }
                     }
