@@ -58,6 +58,27 @@
         }
     }
 
+    function applyMeshPriority(mesh, priority) {
+        if (!mesh || priority === undefined || priority === null) {
+            return;
+        }
+
+        var meshes = [mesh];
+        if (typeof mesh.getChildMeshes === "function") {
+            var childMeshes = mesh.getChildMeshes();
+            for (var i = 0; i < childMeshes.length; i++) {
+                meshes.push(childMeshes[i]);
+            }
+        }
+
+        for (var i = 0; i < meshes.length; i++) {
+            var targetMesh = meshes[i];
+            if (targetMesh.material) {
+                targetMesh.material.zOffset = priority;
+            }
+        }
+    }
+
     if (BABYLON.Engine.isSupported()) {
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
@@ -177,7 +198,13 @@
                             var tileInfo = trackImg.Objects[obj];
                             mesh.position.x = x * tilesize + object.ShiftX(tilesize);
                             mesh.position.z = -y * tilesize - object.ShiftY(tilesize);
-                            mesh.position.y = terrainImg.ObjectsHeight + (replaceTerrain ? 0.00 : 1.00);
+                            var elementIndex = parseInt(element, 10);
+                            if (isNaN(elementIndex)) {
+                                elementIndex = 0;
+                            }
+                            var priority = (typeof object.GetPriority === "function") ? object.GetPriority(elementIndex) : 1;
+                            mesh.position.y = terrainImg.ObjectsHeight + priority;
+                            applyMeshPriority(mesh, priority);
                             mesh.rotation.y = object.Orientation;
                             enableMeshCollisions(mesh);
                             scene.meshes.push(mesh);
