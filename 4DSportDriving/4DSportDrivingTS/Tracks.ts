@@ -63,6 +63,7 @@ module Tracks {
         Elements: string[];
         ZElements: string[];
         PaintJobs: number[];
+        Priorities: number[];
 
         Terrain: number = null;
         IsReplacement: boolean = false;
@@ -70,13 +71,14 @@ module Tracks {
         DimensionX: number;
         DimensionY: number;
 
-        constructor(dimensionX: number, dimensionY: number, orientation: OrientationEnum, elements: string[], zelements: string[] = null, paintJobs: number[] = [0]) {
+        constructor(dimensionX: number, dimensionY: number, orientation: OrientationEnum, elements: string[], zelements: string[] = null, paintJobs: number[] = [0], priorities: number[] = null) {
             this.Orientation = orientation;
             this.Elements = elements;
             this.ZElements = zelements != null ? zelements : elements;
             this.PaintJobs = paintJobs;
             this.DimensionX = dimensionX;
             this.DimensionY = dimensionY;
+            this.Priorities = priorities;
         }
 
         public ShiftX(scale: number): number {
@@ -87,15 +89,25 @@ module Tracks {
             return scale * (Math.abs(Math.sin(this.Orientation)) * this.DimensionX + Math.abs(Math.cos(this.Orientation)) * this.DimensionY) / 2;
         }
 
+        public GetPriority(elementIndex: number): number {
+            if (this.Priorities != null && elementIndex >= 0 && elementIndex < this.Priorities.length) {
+                var priority = this.Priorities[elementIndex];
+                if (priority != null) {
+                    return priority;
+                }
+            }
+
+            return this.IsReplacement ? 0 : 1;
+        }
 
     }
 
     export class ReplacementObjects extends Objects {
-        constructor(terrain: number, dimensionX: number, dimensionY: number, orientation: OrientationEnum, elements: string[], zelements: string[]= null, paintJobs: number[]= [0], replaceTerrain = false) {
-            super(dimensionX, dimensionY,orientation, elements, zelements, paintJobs);
+        constructor(terrain: number, dimensionX: number, dimensionY: number, orientation: OrientationEnum, elements: string[], zelements: string[]= null, paintJobs: number[]= [0], replaceTerrain = false, priorities: number[] = null) {
+            super(dimensionX, dimensionY,orientation, elements, zelements, paintJobs, priorities);
             this.Terrain = terrain;
             this.IsReplacement = true;
-            this.ReplaceTerrain = false;
+            this.ReplaceTerrain = replaceTerrain;
         }
     }
 
