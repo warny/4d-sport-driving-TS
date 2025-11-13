@@ -43,16 +43,34 @@
         }
     }
 
+    function enableMeshCollisions(mesh) {
+        if (!mesh) {
+            return;
+        }
+
+        mesh.checkCollisions = true;
+
+        if (typeof mesh.getChildMeshes === "function") {
+            var childMeshes = mesh.getChildMeshes();
+            for (var i = 0; i < childMeshes.length; i++) {
+                childMeshes[i].checkCollisions = true;
+            }
+        }
+    }
+
     if (BABYLON.Engine.isSupported()) {
         var canvas = document.getElementById("renderCanvas");
         var engine = new BABYLON.Engine(canvas, true);
 
         var scene = new BABYLON.Scene(engine);
+        scene.collisionsEnabled = true;
         var materials = Resources.Material.CreateMaterials(scene)
 
         var camera = new BABYLON.FreeCamera("Camera", new BABYLON.Vector3(0, 500, 0), scene);
         camera.attachControl(canvas, true);
         camera.checkCollisions = true;
+        camera.ellipsoid = new BABYLON.Vector3(90, 120, 90);
+        camera.ellipsoidOffset = new BABYLON.Vector3(0, 60, 0);
         camera.speed = 30;
         camera.keysDown = [40];
         camera.keysUp = [38];
@@ -100,6 +118,7 @@
             shape.setVerticesData(normals, BABYLON.VertexBuffer.NormalKind);
             shape.setIndices(indices);
             shape.material = materials[2];
+            enableMeshCollisions(shape);
             scene.meshes.push(shape);
 
             //for (var x=0; x<track.SizeX;x++) {
@@ -128,6 +147,7 @@
                             mesh.position.z = -y * tilesize - tileInfo.ShiftY(300);
                             mesh.position.y = terrainImg.TerrainHeight;
                             mesh.rotation.y = tileInfo.Orientation;
+                            enableMeshCollisions(mesh);
                             scene.meshes.push(mesh);
                         }
                     }
@@ -159,6 +179,7 @@
                             mesh.position.z = -y * tilesize - object.ShiftY(tilesize);
                             mesh.position.y = terrainImg.ObjectsHeight + (replaceTerrain ? 0.00 : 1.00);
                             mesh.rotation.y = object.Orientation;
+                            enableMeshCollisions(mesh);
                             scene.meshes.push(mesh);
                         }
                     }
